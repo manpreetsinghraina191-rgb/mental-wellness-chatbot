@@ -147,3 +147,15 @@ def test_llm_fallback_survives_llm_error() -> None:
 def test_aggressive_normalization_applied_for_hinglish() -> None:
     out = make_preprocess_node()({"raw_input": "kal se neend nahi aa rahi he"})
     assert out["clean_input"] == "kal se neend nahi aa rahi hai"
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "bas so jaun aur kabhi na uthu",  # crisis message once misread as English
+        "pichle saal IPL final kisne jeeta tha?",
+        "climate change pe mera college essay likh do please",
+    ],
+)
+def test_eval_baseline_regressions_are_hinglish(text: str) -> None:
+    assert detect_script(text) == "roman_hindi"

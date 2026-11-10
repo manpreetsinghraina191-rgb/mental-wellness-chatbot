@@ -34,3 +34,4 @@ Thumbs.db
 data/processed/*.jsonl
 data/processed/*.log
 data/processed/filter_report.json
+results/.crisis_llm_cache.json

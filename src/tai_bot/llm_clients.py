@@ -35,6 +35,10 @@ class RateLimited(Exception):
         self.retry_after = retry_after
 
 
+class EmptyResponse(Exception):
+    """The provider answered but returned no text (e.g. blocked by a safety filter or cut off)."""
+
+
 class QuotaExhausted(Exception):
     """Daily / hard quota hit; retrying today will not help. Switch provider."""
 
@@ -66,7 +70,11 @@ def _gemini(prompt: str, model: str, json_mode: bool, temperature: float, timeou
         raise RateLimited(delay)
     r.raise_for_status()
     data = r.json()
-    parts = data["candidates"][0]["content"]["parts"]
+    candidate = (data.get("candidates") or [{}])[0]
+    parts = candidate.get("content", {}).get("parts")
+    if not parts:
+        reason = candidate.get("finishReason") or data.get("promptFeedback", {}).get("blockReason")
+        raise EmptyResponse(f"{model}: empty response (reason: {reason})")
     return "".join(p.get("text", "") for p in parts if not p.get("thought"))
 
 

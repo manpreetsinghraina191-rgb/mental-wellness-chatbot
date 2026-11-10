@@ -96,6 +96,13 @@ STRONG_HINDI_MARKERS = {
     "wala", "wali", "hoon", "mein", "haan", "theek", "kyunki", "lagta", "lagti", "neend",
     "akela", "akeli", "dimag", "pareshan", "dar", "ghar", "kal", "aaj", "zindagi", "jeena",
     "ji", "aap", "tum", "apna", "apni", "chahiye", "sakta", "sakti", "hota", "hoti",
+    # common Hinglish function / everyday words (added after the first eval baseline)
+    "bas", "kabhi", "pe", "likh", "kisne", "kaun", "kaunsa", "kahan", "yahan", "wahan",
+    "saal", "pichle", "agle", "jaun", "jau", "karu", "karun", "batao", "bata", "chahta",
+    "chahti", "unka", "uska", "uski", "mujhse", "tujhe", "tera", "teri", "kuchh", "zyada",
+    "thoda", "jaldi", "phir", "fir", "waise", "matlab", "sach", "bilkul", "baat", "logon",
+    "dost", "padhai", "naukri",
+    # deliberately NOT here (also common English words): hum, mat, log, do, to, us, bat
 }  # fmt: skip
 # Hinglish function words that are also English words or very short/ambiguous.
 WEAK_HINDI_MARKERS = {"main", "hum", "ho", "ke", "ki", "ka", "ko", "se", "par", "ab", "jab", "dil"}

@@ -266,3 +266,14 @@ def test_parse_translation_reads_scores() -> None:
     assert out[0]["scores"] == [4]
     raw_bad = json.dumps({"items": [{"id": "s1", **GOOD_TRANSLATION, "scores": [4, 5]}]})
     assert parse_translation(raw_bad, [_sample("s1")])[0][0]["scores"] is None  # type: ignore[list-item]
+
+
+def test_empty_llm_response_does_not_crash_the_run(tmp_path: Path) -> None:
+    from tai_bot.llm_clients import EmptyResponse
+
+    def blocked(_p: str) -> str:
+        raise EmptyResponse("gemini: empty response (reason: SAFETY)")
+
+    out = tmp_path / "t.jsonl"
+    stats = translate_samples([_sample("s1"), _sample("s2")], blocked, out, log=lambda _: None)  # type: ignore[list-item]
+    assert stats["failed"] == 2 and stats["translated"] == 0

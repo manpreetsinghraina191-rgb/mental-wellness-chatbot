@@ -40,6 +40,7 @@ ignore = ["RUF001", "RUF002", "RUF003"]  # allow Devanagari / ambiguous unicode 
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["E501"]  # long literal test fixtures are clearer on one line
+"src/tai_bot/crisis.py" = ["E501"]  # one regex per line reads better than wrapped patterns
 
 [tool.mypy]
 python_version = "3.12"

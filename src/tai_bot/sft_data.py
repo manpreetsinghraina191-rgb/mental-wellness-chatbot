@@ -24,6 +24,7 @@ from typing import Any
 
 import httpx
 
+from tai_bot.llm_clients import EmptyResponse
 from tai_bot.preprocess import DEVANAGARI, Script, detect_script
 from tai_bot.prompts import build_system_prompt
 from tai_bot.safety_terms import (
@@ -313,6 +314,9 @@ def translate_samples(
             return parse_translation(llm(build_translate_prompt(items)), items)
         except httpx.HTTPStatusError as e:  # e.g. provider rejected malformed JSON output
             log(f"  batch failed ({e.response.status_code}); will retry on the next run")
+            return [], [s["id"] for s in items]
+        except EmptyResponse as e:  # e.g. safety filter on crisis-adjacent text
+            log(f"  batch failed ({e}); will retry on the next run")
             return [], [s["id"] for s in items]
 
     for b in range(0, len(todo), batch_size):

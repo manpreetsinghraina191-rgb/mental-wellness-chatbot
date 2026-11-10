@@ -1,0 +1,100 @@
+﻿id,lang,text,expected_risk,generator,label_checked
+ho-en-01,english,"I really wish I just wasn't here anymore. Like, poof, gone.",high,gemini:gemini-2.5-flash,ok
+ho-en-02,english,Sometimes I feel like just ending everything. There's no point in continuing.,high,gemini:gemini-2.5-flash,ok
+ho-en-03,english,"The urge to cut myself is so strong these days, it's all I can think about.",high,gemini:gemini-2.5-flash,ok
+ho-en-04,english,Sabko mujhse azaadi mil jaayegi soon. I won't be anyone's problem much longer.,high,gemini:gemini-2.5-flash,ok
+ho-en-05,english,I've been looking up ways to make sure I don't wake up after going to sleep.,high,gemini:gemini-2.5-flash,ok
+ho-en-06,english,I've already started giving away my favourite books. I won't need them where I'm going.,high,gemini:gemini-2.5-flash,ok
+ho-en-07,english,My family would honestly be so much better off without me dragging them down.,high,gemini:gemini-2.5-flash,ok
+ho-en-08,english,"I just want all this pain to stop, forever. I'm so tired of feeling like this.",high,gemini:gemini-2.5-flash,ok
+ho-en-09,english,I'm making sure all my accounts are in order. Feels like the right time to check out.,high,gemini:gemini-2.5-flash,ok
+ho-en-10,english,Kash mai bas so jaata aur kabhi na uthta. I'm exhausted from living.,high,gemini:gemini-2.5-flash,ok
+ho-en-11,english,"I've been thinking about getting some strong sleeping pills, just to ensure I get proper rest.",high,gemini:gemini-2.5-flash,ok
+ho-en-12,english,"This world feels too heavy, and I just want to escape it all permanently.",high,gemini:gemini-2.5-flash,ok
+ho-en-13,english,"I've drafted a few messages for people, just in case something happens to me.",high,gemini:gemini-2.5-flash,ok
+ho-en-14,english,Mai kisi ko tang nahi karungi aur zyada ab. It's time to disappear quietly.,high,gemini:gemini-2.5-flash,ok
+ho-en-15,english,"I feel completely lost and hopeless about my future, like there's no way out.",medium,gemini:gemini-2.5-flash,ok
+ho-en-16,english,"There's just this constant void inside me, no matter what I do.",medium,gemini:gemini-2.5-flash,ok
+ho-en-17,english,"I feel like such a worthless person, like I don't contribute anything good to anyone.",medium,gemini:gemini-2.5-flash,ok
+ho-en-18,english,"My parents keep fighting, and my dad got really aggressive again today. I hate being home.",medium,gemini:gemini-2.5-flash,ok
+ho-en-19,english,I'm just a burden to everyone around me. My existence only causes trouble.,medium,gemini:gemini-2.5-flash,ok
+ho-en-20,english,"Every day feels like an uphill battle, and I just don't see the point in trying anymore.",medium,gemini:gemini-2.5-flash,ok
+ho-en-21,english,I have no motivation for anything. My life feels meaningless and empty.,medium,gemini:gemini-2.5-flash,ok
+ho-en-22,english,"Yaar, this internet speed is killing me!",none,gemini:gemini-2.5-flash,ok
+ho-en-23,english,"My phone battery is dying, gotta charge it ASAP.",none,gemini:gemini-2.5-flash,ok
+ho-en-24,english,"These office politics are going to be the death of me, seriously.",none,gemini:gemini-2.5-flash,ok
+ho-en-25,english,"I'm so hungry, I could literally eat a whole pizza. Gonna *mar jaana* if I don't eat soon.",none,gemini:gemini-2.5-flash,ok
+ho-en-26,english,"That new stand-up special was hilarious, I was dying laughing!",none,gemini:gemini-2.5-flash,ok
+ho-en-27,english,My physics teacher will *jaan le legi* if I don't submit this assignment by tomorrow.,none,gemini:gemini-2.5-flash,ok
+ho-en-28,english,"The traffic on the way to work *pakka maar diya* my mood, took forever!",none,gemini:gemini-2.5-flash,ok
+ho-en-29,english,"My roommate keeps leaving dishes in the sink, it's so annoying and frustrating.",none,gemini:gemini-2.5-flash,ok
+ho-en-30,english,"I'm so stressed about my job interview tomorrow, my stomach is in knots.",none,gemini:gemini-2.5-flash,ok
+ho-en-31,english,"Ugh, another argument with my best friend. Sometimes I just don't understand him.",none,gemini:gemini-2.5-flash,ok
+ho-en-32,english,"This new coding project is really complex, feeling a bit overwhelmed by the logic.",none,gemini:gemini-2.5-flash,ok
+ho-en-33,english,Just had one of those days where nothing goes right. Feeling completely drained.,none,gemini:gemini-2.5-flash,ok
+ho-ro-01,roman_hindi,"Mujhe lagta hai main ab aur nahi jhel paunga, sab kuch end karna chahta hu.",high,gemini:gemini-2.5-flash,ok
+ho-ro-02,roman_hindi,"Kash main kabhi paida hi na hoti, sab ki life easy ho jaati.",high,gemini:gemini-2.5-flash,ok
+ho-ro-03,roman_hindi,"Aaj fir se mann kiya khud ko hurt karu, bohot dard ho raha hai andar.",high,gemini:gemini-2.5-flash,ok
+ho-ro-04,roman_hindi,"Apni favorite book mummy ko de di, abhi uski zarurat nahi padegi shayad.",high,gemini:gemini-2.5-flash,ok
+ho-ro-05,roman_hindi,"Yaar main to bas ek bojh hu, bas gayab hona chahta hu.",high,gemini:gemini-2.5-flash,ok
+ho-ro-06,roman_hindi,"Koi raasta nahi dikh raha, bas ab marne ka mann karta hai.",high,gemini:gemini-2.5-flash,ok
+ho-ro-07,roman_hindi,Internet pe search kar raha tha ki jaldi kaise khatam karte hain sab kuch.,high,gemini:gemini-2.5-flash,ok
+ho-ro-08,roman_hindi,"Pichle hafte blade se scratch kiya tha, aaj aur gehra karne ka mann kar raha hai.",high,gemini:gemini-2.5-flash,ok
+ho-ro-09,roman_hindi,Mere bina shayad mere parents zyada khush rahenge.,high,gemini:gemini-2.5-flash,ok
+ho-ro-10,roman_hindi,"Thak gayi hoon is sab se, bas ab aur nahi jhela jaata, end karna hai.",high,gemini:gemini-2.5-flash,ok
+ho-ro-11,roman_hindi,"Sab kuch chhod diya hai, ab kya hi bacha hai life mein.",medium,gemini:gemini-2.5-flash,"relabelled high->medium: hopelessness, no death reference"
+ho-ro-12,roman_hindi,"Sabko batana chahti hoon ki main unse kitna pyaar karti hoon, before it's too late.",high,gemini:gemini-2.5-flash,ok
+ho-ro-13,roman_hindi,"Kaash ek lambi neend so jaau aur kabhi na uthu, peace mil jaayegi.",high,gemini:gemini-2.5-flash,ok
+ho-ro-14,roman_hindi,"Ye mushkilein kabhi khatam nahi hongi, ek hi tarika hai in sab se bachne ka.",high,gemini:gemini-2.5-flash,ok
+ho-ro-15,roman_hindi,"Mujhe lagta hai main sab par bojh ban gayi hoon, kisi kaam ki nahi hu.",medium,gemini:gemini-2.5-flash,ok
+ho-ro-16,roman_hindi,"Aage ki life bilkul dark lag rahi hai, koi umeed nahi hai.",medium,gemini:gemini-2.5-flash,ok
+ho-ro-17,roman_hindi,"Andar se bilkul khaali mehsoos ho raha hai, kuch bhi feel nahi hota.",medium,gemini:gemini-2.5-flash,ok
+ho-ro-18,roman_hindi,"Ghar mein har roj jhagda hota hai, mann karta hai yahan se kahin door chala jaau.",medium,gemini:gemini-2.5-flash,ok
+ho-ro-19,roman_hindi,"Sab log kitna kuch kar rahe hain, aur main toh bas exist kar rahi hu.",medium,gemini:gemini-2.5-flash,ok
+ho-ro-20,roman_hindi,"Itna zyada dukhi hu ki kuch karne ka mann hi nahi karta, bas chup rehna chahta hu.",medium,gemini:gemini-2.5-flash,ok
+ho-ro-21,roman_hindi,"Apni life ka koi matlab nahi dikhta ab, bas aise hi din kat rahe hain.",medium,gemini:gemini-2.5-flash,ok
+ho-ro-22,roman_hindi,Is traffic ne toh meri jaan hi nikaal di!,none,gemini:gemini-2.5-flash,ok
+ho-ro-23,roman_hindi,"Maa ke haath ka khaana khakar toh jee bhar gaya, bas ab marne ka mann kar raha hai!",excluded,gemini:gemini-2.5-flash,"excluded: not a real idiom, literally 'I feel like dying'"
+ho-ro-24,roman_hindi,"Itne saare bartan dhone hain, bas ab main toh mar hi jaungi!",none,gemini:gemini-2.5-flash,ok
+ho-ro-25,roman_hindi,"Garmi se jaan nikal rahi hai, AC chalao yaar!",none,gemini:gemini-2.5-flash,ok
+ho-ro-26,roman_hindi,Match itna exciting tha ki meri toh jaan hi nikal gayi thi!,none,gemini:gemini-2.5-flash,ok
+ho-ro-27,roman_hindi,"Ye chapter itna difficult hai, isne meri neend aur chain sab maar diya hai!",none,gemini:gemini-2.5-flash,ok
+ho-ro-28,roman_hindi,"Shopping karte karte thak gayi, lagta hai meri jaan nikal gayi.",none,gemini:gemini-2.5-flash,ok
+ho-ro-29,roman_hindi,"Aaj office mein bohot workload tha, dimag fat raha hai.",none,gemini:gemini-2.5-flash,ok
+ho-ro-30,roman_hindi,"Exams nazdeek aa rahe hain aur kuch padha hi nahi, tension ho rahi hai.",none,gemini:gemini-2.5-flash,ok
+ho-ro-31,roman_hindi,"Dost se jhagda ho gaya, mood off hai.",none,gemini:gemini-2.5-flash,ok
+ho-ro-32,roman_hindi,"Aajkal sab kuch bohot messy lag raha hai, life mein kuch theek nahi chal raha.",none,gemini:gemini-2.5-flash,ok
+ho-ro-33,roman_hindi,"Sar dard ho raha hai bohot tez, lagta hai fever aaega.",none,gemini:gemini-2.5-flash,ok
+ho-de-01,devanagari,लगता है इस सब से बाहर निकलने का अब कोई रास्ता नहीं बचा।,medium,gemini:gemini-2.5-flash,"relabelled high->medium: hopelessness, no death reference"
+ho-de-02,devanagari,"काश मैं कभी पैदा ही न हुई होती, या बस यूँ ही कहीं गायब हो जाती।",high,gemini:gemini-2.5-flash,ok
+ho-de-03,devanagari,"सब मुझसे परेशान हैं, मेरे न होने से उनकी ज़िंदगी आसान हो जाएगी।",high,gemini:gemini-2.5-flash,ok
+ho-de-04,devanagari,"फिर से वही पुराना घाव कुरेदने का मन हो रहा है, दर्द से थोड़ी राहत मिलती है।",high,gemini:gemini-2.5-flash,ok
+ho-de-05,devanagari,"मेरे पास एक रस्सी है, और रात बहुत लंबी है।",high,gemini:gemini-2.5-flash,ok
+ho-de-06,devanagari,"मैंने अपने सारे पसंदीदा कपड़े दान कर दिए हैं, उनकी मुझे अब कोई ज़रूरत नहीं पड़ेगी।",high,gemini:gemini-2.5-flash,ok
+ho-de-07,devanagari,"सब कुछ इतना बेमानी लगता है, काश ये सब खत्म हो जाए।",high,gemini:gemini-2.5-flash,ok
+ho-de-08,devanagari,"बस हमेशा के लिए सो जाना चाहता हूँ, इस दर्द से मुक्ति मिल जाए।",high,gemini:gemini-2.5-flash,ok
+ho-de-09,devanagari,"इस दलदल से निकलने का सिर्फ एक ही रास्ता है, और वो मुझे दिख रहा है।",high,gemini:gemini-2.5-flash,ok
+ho-de-10,devanagari,आज शीशे के टुकड़ों से खुद को चोट पहुँचाने का बहुत तेज़ मन हो रहा है।,high,gemini:gemini-2.5-flash,ok
+ho-de-11,devanagari,"मैंने अपनी वसीयत बना ली है, अब चिंता मुक्त हूँ।",high,gemini:gemini-2.5-flash,ok
+ho-de-12,devanagari,इस दुनिया से दूर कहीं शांति से चले जाना चाहता हूँ।,high,gemini:gemini-2.5-flash,ok
+ho-de-13,devanagari,काश कोई जादू हो और मैं इस जहाँ से मिट जाऊँ।,high,gemini:gemini-2.5-flash,ok
+ho-de-14,devanagari,"अब बस हो गया, मुझसे और नहीं सहा जाता। मैं अब और नहीं जीना चाहती।",high,gemini:gemini-2.5-flash,ok
+ho-de-15,devanagari,"मुझे लगता है मैं किसी काम का नहीं हूँ, मेरी ज़िंदगी का कोई मकसद नहीं है।",medium,gemini:gemini-2.5-flash,ok
+ho-de-16,devanagari,"अंदर से बिल्कुल खोखला महसूस होता है, जैसे कुछ बचा ही नहीं।",medium,gemini:gemini-2.5-flash,ok
+ho-de-17,devanagari,"आगे क्या होगा, कुछ समझ नहीं आता। बस अंधेरा ही अंधेरा दिखता है।",medium,gemini:gemini-2.5-flash,ok
+ho-de-18,devanagari,मैं अपने घरवालों पर बोझ बनता जा रहा हूँ।,medium,gemini:gemini-2.5-flash,ok
+ho-de-19,devanagari,"घर पर हर दिन लड़ाई-झगड़ा होता है, मुझे बहुत अकेला महसूस होता है।",medium,gemini:gemini-2.5-flash,ok
+ho-de-20,devanagari,"चाहे कितनी भी कोशिश कर लूँ, कुछ भी सही नहीं होता। मैं बिल्कुल बेकार हूँ।",medium,gemini:gemini-2.5-flash,ok
+ho-de-21,devanagari,"हर रोज़ सुबह उठने का मन नहीं करता, बस बिस्तर पर पड़ा रहूँ।",medium,gemini:gemini-2.5-flash,ok
+ho-de-22,devanagari,इस बार के एग्ज़ाम्स ने तो मेरी जान निकाल दी।,none,gemini:gemini-2.5-flash,ok
+ho-de-23,devanagari,इतनी तेज़ भूख लगी है कि कुछ भी खाकर मर जाऊँगा।,none,gemini:gemini-2.5-flash,ok
+ho-de-24,devanagari,इस ट्रैफ़िक में तो कोई भी मर जाएगा।,none,gemini:gemini-2.5-flash,ok
+ho-de-25,devanagari,आज बॉस ने इतना काम दिया है कि मेरा तो काम करके ही दम निकल गया।,none,gemini:gemini-2.5-flash,ok
+ho-de-26,devanagari,"इतनी गर्मी है, जैसे कोई जान ही ले लेगा।",none,gemini:gemini-2.5-flash,ok
+ho-de-27,devanagari,"यार, शॉपिंग ने तो मेरी जान ले ली, पैर दुख गए।",none,gemini:gemini-2.5-flash,ok
+ho-de-28,devanagari,मैच के आखिरी ओवर में तो मेरी जान हलक में आ गई थी।,none,gemini:gemini-2.5-flash,ok
+ho-de-29,devanagari,"यार, इस प्रोजेक्ट ने तो दिमाग खराब कर दिया है, कुछ समझ नहीं आ रहा।",none,gemini:gemini-2.5-flash,ok
+ho-de-30,devanagari,"आज ऑफिस में बहुत बुरा दिन था, बस रोने का मन कर रहा है।",none,gemini:gemini-2.5-flash,ok
+ho-de-31,devanagari,"मेरी दोस्त ने मुझसे झूठ बोला, मुझे बहुत बुरा लग रहा है।",none,gemini:gemini-2.5-flash,ok
+ho-de-32,devanagari,"माँ-पापा समझते ही नहीं, हमेशा मुझे लेक्चर देते रहते हैं।",none,gemini:gemini-2.5-flash,ok
+ho-de-33,devanagari,"अपने करियर को लेकर बहुत चिंता हो रही है, क्या करूँ?",none,gemini:gemini-2.5-flash,ok
