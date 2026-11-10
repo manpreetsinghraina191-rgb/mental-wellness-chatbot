@@ -191,3 +191,33 @@ class LLMChain:
 
 def make_llm_chain(specs: list[str], log: Callable[[str], None] = print, **kwargs: Any) -> LLMChain:
     return LLMChain(specs, log=log, **kwargs)
+
+
+ChatMessage = dict[str, str]
+ChatLLM = Callable[[list[ChatMessage]], str]
+
+
+def make_chat_llm(
+    model: str | None = None,
+    temperature: float = 0.6,
+    max_tokens: int = 220,
+    timeout: float = 180.0,
+) -> ChatLLM:
+    """Chat completion on the LOCAL Ollama server (the only provider allowed to see user text).
+    `messages` are {"role": "system" | "user" | "assistant", "content": ...}."""
+    base = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+    name = model or os.getenv("CHAT_MODEL") or DEFAULT_MODELS["ollama"]
+
+    def chat(messages: list[ChatMessage]) -> str:
+        body: dict[str, Any] = {
+            "model": name,
+            "messages": messages,
+            "stream": False,
+            "think": False,
+            "options": {"temperature": temperature, "num_predict": max_tokens},
+        }
+        r = httpx.post(f"{base}/api/chat", json=body, timeout=timeout)
+        r.raise_for_status()
+        return str(r.json()["message"]["content"]).strip()
+
+    return chat
