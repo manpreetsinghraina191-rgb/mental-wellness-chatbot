@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Secrets
+.env
+
+# Data and models (large or licensed)
+data/raw/
+models/
+*.faiss
+*.index
+*.gguf
+*.safetensors
+wandb/
+
+# Never commit conversation logs
+logs/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Generated datasets and run logs (rebuild with scripts/prepare_sft_data.py)
+data/processed/*.jsonl
+data/processed/*.log
+data/processed/filter_report.json
