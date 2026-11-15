@@ -639,13 +639,56 @@ encode Q6_K, so the script includes a small encoder following ggml's block layou
 
 ---
 
+## Entry 12: Ablation results: retrieval helps, the fine-tune does not
+
+Full pipeline, 71 generated replies per variant (74 eval messages; 3 were routed to fixed
+replies). Judge: gemini-3.1-flash-lite, blind to the variant, same model for all 213 replies.
+Full tables per language in [results/ablation.md](results/ablation.md).
+
+| Variant | First reply passes rails | Wrong script | Safe fallback used | Empathy | Naturalness | Helpfulness | Judge: safe | Words |
+|---|---|---|---|---|---|---|---|---|
+| base (qwen3.5:4b) | 87% | 13% | 11% | 4.68 | 4.51 | 4.37 | 99% | 62 |
+| **base + RAG** | 93% | 6% | 4% | **4.65** | **4.69** | **4.46** | 97% | 66 |
+| fine-tuned + RAG | **99%** | **0%** | **0%** | 2.58 | 3.37 | 2.28 | 93% | 23 |
+
+**Retrieval** improves language-following, mostly for Hinglish: first-reply pass rate goes from
+61% to 83%, and wrong-script replies drop from 39% to 17%. Quality stays the same or slightly
+better (naturalness 4.51 -> 4.69). Cost: ~3 s per turn.
+
+**The fine-tune fixed language-following completely** (0 wrong-script replies, Hinglish 100%),
+**but made the replies much worse** on everything the judge scores (empathy 4.65 -> 2.58,
+helpfulness 4.46 -> 2.28), worst in Devanagari Hindi (naturalness 2.14). Why, from the
+replies:
+1. **It learned the length and style of the training data.** It averages 23 words, against 66
+   for base + RAG. ESConv supporter turns are short and question-heavy, and the model copied
+   that: "So you are feeling lonely because you don't have any friends here?" asks a question
+   without validating the feeling first.
+2. **It ignores the retrieved context.** The training data never contained retrieved context,
+   so the model never learned to use it. Helpfulness on technique questions is 1.88 vs 4.62.
+   One reply claimed sadness lasting "more than a week" may be depression; the WHO card it
+   was given says two weeks.
+3. **Machine-translated Hindi training text** taught it unnatural Hindi.
+4. 5 judge-unsafe replies (vs 2 for base + RAG), e.g. it missed a threat of violence in an
+   idiom test item and answered a money worry instead.
+
+**Caveats.** The judge is one LLM, not validated against human ratings, and it probably
+favours longer replies; but the failures above are visible in the replies themselves. The
+fine-tuned run's time (33 s/turn) is inflated: the safety classifier and router still use
+qwen3.5:4b, and two 3 GB models don't fit in 6 GB of VRAM together, so Ollama swaps them
+every turn. On its own, the fine-tuned model answers in 4-6 s.
+
+**Decision.** The demo uses **base qwen3.5:4b + RAG** (already the app default). The
+fine-tune is reported as a negative result with a clear cause. To fix it next time: train on
+longer, validating replies (filter ESConv for reflection and affirmation strategies), include
+retrieved context in some training examples, and have native speakers review the translated
+Hindi.
+
+---
+
 ## Next
 
 Deadline: about 2026-11-18.
-- User: re-run `notebooks/finetune_saathi.ipynb` (1 epoch; Kaggle or Colab once the quota resets); bring back `saathi_lora.zip` + the GGUF.
-- Load the fine-tuned model into Ollama (`scripts/make_ollama_model.py`).
-- `scripts/run_eval.py`: the ablation (base + prompt, + RAG, fine-tuned + RAG, +
-  transliteration) on the eval set, with output-check pass rates and an LLM-as-judge rubric.
 - README with results, safety and ethics, limitations; demo GIF.
+- Optional: run the 12 multi-turn conversations through the pipeline.
 - Still waiting on a native speaker: review of `eval_set.csv`, the crisis templates and the
   Hindi knowledge-base cards.
