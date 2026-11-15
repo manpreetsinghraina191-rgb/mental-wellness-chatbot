@@ -35,7 +35,8 @@ from tai_bot.crisis import (
 from tai_bot.llm_clients import ChatLLM, ChatMessage
 from tai_bot.output_check import SAFE_FALLBACK, check_reply, correction_note
 from tai_bot.preprocess import Script, make_preprocess_node
-from tai_bot.prompts import PERSONA
+from tai_bot.prompts import persona_for
+from tai_bot.retrieval import reply_lang_for
 from tai_bot.router import REDIRECT, REFUSE, route_message
 
 TextLLM = Callable[[str], str]
@@ -59,6 +60,7 @@ class ChatState(TypedDict, total=False):
     route: str
     route_source: str
     context: list[str]
+    sources: list[dict[str, Any]]
     response: str
     output_problems: list[str]
     used_fallback: bool
@@ -110,10 +112,12 @@ def build_graph(
     classifier: TextLLM | None = None,
     router: TextLLM | None = None,
     transliterator: TextLLM | None = None,
+    retriever: Any = None,
     checkpointer: Any = None,
 ) -> Any:
     """`chat`: generator (local). `classifier`: crisis LLM. `router`: safety-router LLM.
-    Any of the optional LLMs may be None (then rules / lexicon only)."""
+    `retriever`: tai_bot.retrieval.Retriever (step 5). Any optional part may be None
+    (then rules / lexicon only, or no retrieval)."""
     base_preprocess = make_preprocess_node(transliterator)
 
     def preprocess(state: ChatState) -> dict[str, Any]:
@@ -121,7 +125,7 @@ def build_graph(
         # reset per-turn fields (the checkpointer keeps the previous turn's values)
         out.update(
             crisis_matches=[], crisis_llm_risk=None, intent="", route="", route_source="",
-            output_problems=[], used_fallback=False, context=[],
+            output_problems=[], used_fallback=False, context=[], sources=[],
         )  # fmt: skip
         return out
 
@@ -197,6 +201,26 @@ def build_graph(
     def refuse(state: ChatState) -> dict[str, Any]:
         return _finish(state, REFUSE[state["script"]])
 
+    def retrieve(state: ChatState) -> dict[str, Any]:
+        if retriever is None or state.get("intent") == "greeting":
+            return {"context": [], "sources": []}
+        try:
+            hits = retriever.search(
+                state.get("retrieval_queries") or [state["clean_input"]],
+                reply_lang=reply_lang_for(state["script"]),
+            )
+        except Exception:  # retrieval is an enhancement; never block a reply on it
+            return {"context": [], "sources": []}
+        return {
+            "context": [h.text for h in hits],
+            "sources": [
+                {"card": h.card_id, "source": h.source, "url": h.url,
+                 "similarity": round(h.score, 3),
+                 "rerank": None if h.rerank is None else round(h.rerank, 3)}
+                for h in hits
+            ],
+        }  # fmt: skip
+
     def generate(state: ChatState) -> dict[str, Any]:
         script = state["script"]
         followup = state.get("risk_level") == "high"
@@ -205,9 +229,14 @@ def build_graph(
         ]
         if state.get("risk_level") == "medium":
             hints.append(MEDIUM_RISK_HINT)
-        system = f"{PERSONA}\n\nLanguage: {state['reply_instruction']}\n\n" + " ".join(hints)
+        system = f"{persona_for(script)}\n\nLanguage: {state['reply_instruction']}\n\n"
+        system += " ".join(hints)
         if state.get("context"):
-            system += "\n\nReference information (use only if relevant; do not invent facts):\n"
+            system += (
+                "\n\nReference information from trusted sources. Use it only if relevant. If you "
+                "describe a technique, follow these steps and numbers exactly; do not invent "
+                "facts, numbers or steps:\n"
+            )
             system += "\n".join(f"- {c}" for c in state["context"])
         history = state.get("messages", [])[-HISTORY_MESSAGES:]
         msgs: list[ChatMessage] = [{"role": "system", "content": system}, *history]
@@ -256,6 +285,7 @@ def build_graph(
         ("router", route),
         ("redirect", redirect),
         ("refuse", refuse),
+        ("retrieve", retrieve),
         ("generate", generate),
     ]:
         g.add_node(name, fn)
@@ -263,8 +293,9 @@ def build_graph(
     g.add_conditional_edges("preprocess", after_preprocess, ["consent_yes", "consent_no", "crisis"])
     g.add_conditional_edges("crisis", after_crisis, ["protocol", "generate", "router"])
     g.add_conditional_edges(
-        "router", after_route, {"generate": "generate", "redirect": "redirect", "refuse": "refuse"}
+        "router", after_route, {"generate": "retrieve", "redirect": "redirect", "refuse": "refuse"}
     )
+    g.add_edge("retrieve", "generate")
     for terminal in ("consent_yes", "consent_no", "protocol", "redirect", "refuse", "generate"):
         g.add_edge(terminal, END)
     return g.compile(checkpointer=checkpointer or InMemorySaver())

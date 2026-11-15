@@ -27,11 +27,31 @@ load_dotenv(ROOT / ".env")
 
 CHAT_MODEL = os.getenv("CHAT_MODEL", "qwen3.5:4b")
 CLASSIFIER_MODEL = os.getenv("CLASSIFIER_MODEL", "qwen3.5:4b")
+USE_RAG = os.getenv("USE_RAG", "1") == "1"
+USE_RERANKER = os.getenv("USE_RERANKER", "0") == "1"  # no gain at 14 cards (eval)
+USE_TRANSLIT = os.getenv("USE_TRANSLIT", "1") == "1"  # Hinglish Recall@3 50% -> 100%
 
+
+def load_retriever() -> Any:
+    """Retrieval is optional: needs `uv sync --extra rag` and a built index."""
+    if not USE_RAG:
+        return None
+    try:
+        from tai_bot.retrieval import Retriever, load_bge_m3, load_reranker
+
+        return Retriever.load(load_bge_m3(), load_reranker() if USE_RERANKER else None)
+    except Exception as e:  # missing extra or index: run without retrieval
+        print(f"Retrieval disabled ({type(e).__name__}: {e})")
+        return None
+
+
+RETRIEVER = load_retriever()
 GRAPH = build_graph(
     chat=make_chat_llm(CHAT_MODEL),
     classifier=make_llm("ollama", CLASSIFIER_MODEL, json_mode=True, temperature=0.0),
     router=make_llm("ollama", CLASSIFIER_MODEL, json_mode=True, temperature=0.0),
+    transliterator=make_llm("ollama", CLASSIFIER_MODEL, temperature=0.0) if USE_TRANSLIT else None,
+    retriever=RETRIEVER,
 )
 
 TEXT = {
@@ -92,11 +112,18 @@ def explain(state: dict[str, Any]) -> dict[str, Any]:
         "route": state.get("route"),
         "route_decided_by": state.get("route_source"),
         "intent": state.get("intent"),
+        "retrieved_sources": state.get("sources", []),
         "output_check_problems": state.get("output_problems"),
         "used_safe_fallback": state.get("used_fallback"),
         "flagged_for_human_review": state.get("flagged_for_review"),
         "escalation_records": state.get("escalations", []),
-        "models": {"generator": CHAT_MODEL, "classifier_router": CLASSIFIER_MODEL},
+        "models": {
+            "generator": CHAT_MODEL,
+            "classifier_router": CLASSIFIER_MODEL,
+            "retrieval": ("BGE-M3" + (" + reranker" if USE_RERANKER else ""))
+            if RETRIEVER
+            else "off",
+        },
     }
 
 

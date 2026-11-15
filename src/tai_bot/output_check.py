@@ -50,6 +50,8 @@ def check_reply(reply: str, script: Script) -> CheckResult:
         problems.append("too_long")
     for m in _PHONE.finditer(reply):
         number = re.sub(r"[ +]", "", m.group(1))
+        if sum(c.isdigit() for c in number) < 6:  # "5-4-3-2-1" grounding is not a phone number
+            continue
         if number not in ALLOWED_NUMBERS:
             problems.append(f"unknown_number:{m.group(1).strip()}")
     return CheckResult(not problems, problems)

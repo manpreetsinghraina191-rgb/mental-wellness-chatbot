@@ -12,6 +12,18 @@ dependencies = [
     "python-dotenv>=1.2.4",
 ]
 
+[project.optional-dependencies]
+# Retrieval (step 5). CPU-only torch on purpose: the 6 GB GPU is used by the chat model.
+rag = ["torch", "sentence-transformers", "faiss-cpu", "numpy"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
 [dependency-groups]
 dev = [
     "mypy>=2.4.1",
@@ -35,6 +47,7 @@ addopts = "-q --cov=tai_bot --cov-report=term-missing"
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+extend-exclude = ["notebooks"]  # Colab notebooks (shell cells, top-to-bottom style)
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
@@ -50,5 +63,5 @@ strict = true
 files = ["src"]
 
 [[tool.mypy.overrides]]
-module = ["ai4bharat.*"]
+module = ["ai4bharat.*", "faiss.*", "sentence_transformers.*"]
 ignore_missing_imports = true

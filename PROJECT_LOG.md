@@ -172,6 +172,26 @@ ESConv: 1,300 conversations
 4. Expected yield: roughly 35–40% of candidates, about 700 conversations × 3 languages ≈ 2,100
    training examples, plus gold (human-written) samples.
 
+**First full-scale yield (1,355 of 1,976 translated, 2026-11-10).**
+- The LLM quality judge dropped 529 samples (39%), so 826 source conversations were kept (61%;
+  better than the 35% the small pilot suggested).
+- Translation checks dropped only 4 Hindi and 33 Hinglish versions (mostly Devanagari words
+  slipping into Hinglish).
+- Training files: **2,217 train / 224 val** examples, close to equal thirds (English 750,
+  Hindi 747, Hinglish 720 in train), split by source conversation.
+- Translator share so far: gemini-3.1-flash-lite 865, gemini-3.5-flash-lite 315,
+  gemini-2.5-flash 85, groq gpt-oss-120b 80 (+10 pilot).
+- All free daily quotas ran out once and the run stopped cleanly; it resumed later from where
+  it left off.
+
+**Final dataset (all 1,976 candidates translated, 2026-11-15).**
+- The quality judge kept 1,215 source conversations (61.5%) and dropped 761.
+- Training files: **3,247 train / 340 val** examples (train: English 1,101, Hindi 1,096,
+  Hinglish 1,050), within the brief's 3-6K target, split by source conversation.
+- Translators: gemini-3.1-flash-lite 1,236, gemini-3.5-flash-lite 565, gemini-2.5-flash 85,
+  groq gpt-oss-120b 80, pilot 10. All free tier; the run needed several restarts across days as
+  quotas reset.
+
 **Free-tier engineering (honest account).**
 - Gemini 3.5 Flash's free *daily* quota ran out after about 20 requests; `gemini-flash-latest`
   and 3.8 Flash hung; 503 "high demand" errors were common.
@@ -393,17 +413,239 @@ output-check problems and review flag, so the safety design is visible in the de
 - The 9B Qwen model writes clearly better Hinglish but doesn't fit in 6 GB of VRAM (57% runs
   on CPU, ~5.5 tokens/s, so 15–20 s per reply).
 
+**Generator model comparison** ([results/model_comparison.md](results/model_comparison.md)):
+same persona prompt and intent hints, 9 prompts (venting / technique / medicine request × 3
+languages).
+
+| Model | Seconds per reply | Passed output checks | Notes |
+|---|---|---|---|
+| qwen3.5:4b | 5.0 | 7/9 | fast; twice answered Hinglish in Devanagari; uneven Hinglish |
+| llama3.1:8b | 13.1 | 7/9 | answered English questions in Hinglish twice; one garbled technique ("ghutne… nakhon se"); replies cut off; does **not** fit fully in 6 GB VRAM (25% on CPU, ~15 tokens/s) |
+| qwen3.5 9B | 21.5 | 9/9 | clearly the best replies: natural Hinglish, correct 4-7-8 and box breathing; 57% on CPU |
+
+- My earlier recommendation of Llama-3.1-8B was wrong on both counts: on this laptop it is not
+  fast (it doesn't fit fully in VRAM, because Windows also uses some GPU memory), and it follows
+  the script instruction worse than the 4B Qwen.
+- This changes the fine-tuning plan: the brief chose Llama-3.1-8B as the base, but the evidence
+  favours fine-tuning **Qwen3.5-4B**. It is the model that runs fast on the target hardware, and
+  its weaknesses (script following, natural Hinglish, gendered self-reference) are exactly what
+  a tone/language fine-tune is meant to fix. The 9B model then serves as the quality reference.
+
 **Tests:** 20 graph tests with fake LLMs (protocol, consent yes/no/unclear, crisis beats
 jailbreak, sticky flag, regeneration + fallback, wrong-script correction, generator failure,
 history passing, no false refusals, invented phone numbers).
 
 ---
 
+## Entry 7: Knowledge base and retrieval (step 5)
+
+**Files.** [data/kb/knowledge_base.json](data/kb/knowledge_base.json) (14 cards, English + Hindi),
+[src/tai_bot/retrieval.py](src/tai_bot/retrieval.py), [scripts/build_kb_index.py](scripts/build_kb_index.py),
+[scripts/eval_retrieval.py](scripts/eval_retrieval.py), [tests/test_retrieval.py](tests/test_retrieval.py),
+results in [results/retrieval_eval.md](results/retrieval_eval.md) and
+[results/live_smoke_rag.txt](results/live_smoke_rag.txt).
+
+**Knowledge base.** 14 short single-topic "cards" (60-150 words each, one technique or fact per
+card, so a hit is always complete), each with its source URL. Facts were read from the source
+pages at build time, not written from memory:
+- WHO fact sheets (depression; anxiety disorders): what they are, signs, how common, treatable,
+  self-care, "at least two weeks" for a depressive episode.
+- NHS: breathing exercise for stress (breathe in and out counting 1 to 5, at least 5 minutes),
+  sleep tips, "catch it, check it, change it" thought reframing.
+- Vancouver Island University counselling service: 5-4-3-2-1 grounding.
+- Government of India: Tele-MANAS (14416 / 1-800-891-4416, free, 24x7, many languages, launched
+  October 2022, NIMHANS nodal centre) and 112. The Tele-MANAS site needs JavaScript and the PIB
+  pages returned 403, so these facts come from PIB release listings and agree across sources.
+- Exam stress, loneliness and help-seeking cards combine the WHO/NHS advice above (stated on the
+  card).
+- **Finding:** no trusted source checked describes the "4-7-8" breathing method the 4B model
+  kept suggesting (and described wrongly), so the knowledge base uses the NHS method.
+- Hindi versions were translated by gemini-2.5-flash (free tier, public text) and recorded per
+  card (`hi_translated_by`); still to be checked by a native speaker.
+
+**Retrieval design.** BGE-M3 dense embeddings, normalized, FAISS `IndexFlatIP` (cosine), each
+card indexed in both languages (28 vectors). Every query variant is searched (original text plus
+a Devanagari transliteration for Hinglish), hits are merged per card, and only cards above a
+cosine threshold (0.45) are passed on, so off-topic questions get no context. The card is
+returned in Hindi for Devanagari/mixed replies and in English otherwise. **Embeddings run on the
+CPU** (CPU-only PyTorch): the 6 GB GPU is fully used by the chat model, and searching 28
+vectors is fast. Retrieval is a separate graph node (router -> retrieve -> generate), skipped for
+greetings and crisis messages, never blocks a reply if it fails, and its sources appear in the
+"Why this reply?" panel. The generator is told to follow the retrieved steps and numbers
+exactly.
+
+**Evaluation** (50 queries from the eval set: 38 with a relevant card, 12 off-topic negatives).
+
+| Config | Hinglish Recall@3 | All Recall@3 | MRR (all) | Off-topic given context |
+|---|---|---|---|---|
+| Dense only | 50% | 84% | 0.78 | 0/12 |
+| Dense + reranker | 50% | 84% | 0.78 | 0/12 |
+| **Dense + transliteration** | **100%** | **100%** | **0.93** | 1/12 |
+| Dense + transliteration + reranker | 100% | 100% | 0.90 | 1/12 |
+
+- **The brief's key hypothesis holds:** BGE-M3 handles English and Devanagari well (100%), but
+  Romanized Hindi only 50%. Adding a Devanagari transliteration of the query lifts Hinglish to
+  100% (MRR 0.44 -> 0.92). Transliteration is done by the local qwen3.5:4b (IndicXlit doesn't
+  install on Python 3.12) and costs ~2.7 s per Hinglish message.
+- **Two mistakes of mine, found and fixed through measurement:**
+  1. The first run used a reranker cut-off of 0.2, chosen without measuring, and recall
+     collapsed to 42%. Measured: bge-reranker-v2-m3's scores on these statement-style queries are
+     tiny (relevant median 0.048, irrelevant 0.000). The reranker now only reorders.
+  2. The first transliteration prompt listed example words ("anxiety, exam, stress") and the 4B
+     model appended them to its output. Replaced with a worked example; the cache key now
+     includes the prompt.
+- **The reranker adds nothing at this knowledge-base size** (14 cards), so it is off by default
+  (`USE_RERANKER=1` turns it on). Transliteration is on by default.
+- Caveat: 38 queries and 14 cards is small; 100% partly reflects an easy test.
+
+**Live check** (results/live_smoke_rag.txt): the Hinglish breathing question now gets the NHS
+steps ("count karke 1 se 5 tak ... kam se kam 5 minute"), and Tele-MANAS facts are correct. The
+4B model's wording is still uneven ("nas se saans lein": nas means vein, it should be naak;
+"muth" for munh), which is the fine-tuning target. A full Hinglish turn now takes ~13-16 s
+(transliteration, crisis, router, reply).
+
+---
+
+## Entry 8: Fine-tuning notebook (step 6)
+
+**File.** [notebooks/finetune_saathi.ipynb](notebooks/finetune_saathi.ipynb), a free Colab T4
+notebook: install Unsloth, upload `sft_train.jsonl` / `sft_val.jsonl`, load
+`unsloth/Qwen3.5-4B`, add LoRA, format with the model's chat template, train on assistant
+tokens only (`train_on_responses_only`, checked by decoding the trained tokens), evaluate every
+epoch and keep the best checkpoint by validation loss, test replies in three languages, save the
+adapter separately, export a q4_k_m GGUF for Ollama.
+
+**Deviation from the brief, with reason.** The brief specified 4-bit QLoRA on
+Llama-3.1-8B. (1) The model changed to Qwen3.5-4B after the model comparison (entry 6).
+(2) Unsloth's Qwen3.5 guide says 4-bit QLoRA is not recommended for Qwen3.5 because the
+quantisation error is unusually large, and recommends 16-bit LoRA (~10 GB VRAM for 4B, which
+fits the T4's 16 GB). All other settings follow the brief: r=16, alpha=32, dropout 0.05, all
+attention + MLP projections, LR 2e-4, 2 epochs, max length 2048, effective batch size 8.
+
+---
+
+## Entry 9: Fine-tuning run 1 (2026-11-15)
+
+**What happened.** Training (cell 6) finished on the free Colab T4: 2 epochs, ~812 steps. The
+quick language test (then cell 7) crashed on a small error, which stopped the notebook before
+the save cells (then 8-9) ran, and the free GPU quota then ran out. **The trained weights were
+lost; only the training log survives** (screenshots).
+
+**What the log shows.**
+
+| | Training loss (logged, approx.) | Validation loss |
+|---|---|---|
+| Epoch 1 (end) | ~1.3-1.5 | **1.4443** |
+| Epoch 2 (end) | ~1.0-1.1 | 1.4621 |
+
+- Training loss dropped sharply at the start of epoch 2 (1.39 -> 1.29 -> 1.08) while
+  validation loss went *up*: the classic sign of the model starting to memorise the training
+  conversations (overfitting). Epoch 1 is the better model. (`load_best_model_at_end` would
+  have kept it.)
+- The learning rate printed as 0.0001 and later 0.0 only because the log rounds to 4 decimals
+  (linear decay from 2e-4).
+
+**Fixes.**
+1. *My notebook design error:* the optional test ran before saving. The notebook now saves the
+   adapter and training log straight after training (cell 7), exports the GGUF (cell 8), and
+   runs the test last, inside `try`, so it cannot lose work again. The test now uses the inner
+   text tokenizer (Qwen3.5 loads a multimodal processor, the likely cause of the crash).
+2. **Epochs 2 -> 1**, justified by run 1's validation loss, which also halves the GPU time.
+   Checkpointing per epoch is no longer needed (`save_strategy="no"`).
+3. The notebook also runs on Kaggle's free T4 (30 h/week): data from `/kaggle/input`, outputs
+   to `/kaggle/working`.
+
+**Run 2 (1 epoch, free Colab T4, 2026-11-15):** 406 steps in 1 h 19 min (5,032 s).
+Training loss 1.396 (epoch average 1.523), **validation loss 1.4356**, better than run 1's
+best (1.4443 after its first epoch, whose learning rate was still high). Trainable parameters:
+21.2 M of 4.56 B (0.47%). One more notebook bug: Colab also has a `/kaggle` folder, so the
+Kaggle detection was wrong and writing the log failed *after* training. The model was still in
+memory and was saved from a patched cell. Detection now checks `/kaggle/working`.
+
+---
+
+## Entry 10: Ablation script, and two bugs it found before it even ran properly
+
+**File.** [scripts/run_eval.py](scripts/run_eval.py), with three subcommands:
+- `generate --variant base|base_rag|ft_rag` runs the full app pipeline on the 74 eval
+  messages that should get a generated reply (support, technique, info, idiom_safe,
+  crisis_medium). It records the model's *first* reply (before the rails regenerate), whether
+  that passed the output rails, whether the user got the safe fallback, retrieved cards and
+  time per turn. It resumes if interrupted.
+- `judge` scores every reply blind (the judge never sees the variant) for empathy,
+  naturalness of the language and helpfulness (1-5) plus safe yes/no, using a free-tier Gemini
+  model. Only the public, synthetic eval messages are sent. Scores are cached.
+- `report` writes [results/ablation.md](results/ablation.md): one table overall and one per
+  language, first-reply problem counts, and example replies side by side.
+
+**Bug 1: English messages got Hindi replies.** In a 3-message test run, all three English
+messages got Hindi/Hinglish first replies (the rails caught it and regenerated). Measured
+without retrieval too, so retrieval wasn't the cause. The cause was the persona line I added in
+step 4 ("aap", "मुझे लगता है", "mujhe lagta hai"): its Hindi examples pull the 4B model into
+Hindi even when the prompt says "Reply in English." Test, 6 replies each:
+
+| System prompt for English messages | English replies |
+|---|---|
+| Current persona (with Hindi examples) | 3/6 |
+| Same + "Write your entire reply in English only." at the end | 5/6 |
+| **Persona without the Hindi line** | **6/6** |
+
+Fix: the Hindi-style line is now only in prompts for Hindi, Hinglish and mixed replies
+(`persona_for(script)`). Those prompts are unchanged from the fine-tuning data. The fine-tuning
+data's English examples still contain the line, a small train/serve difference that only
+removes text.
+
+**Bug 2: the rails flagged "5-4-3-2-1" as an invented phone number.** The grounding technique
+from the knowledge base looked like a phone number to the regex. Numbers now need at least 6
+digits to count as phone numbers; test added.
+
+**Not a bug: replies took ~100 s instead of ~13 s.** Ollama generated 2.3 tokens/s instead of
+~50 because the laptop was on battery (GPU throttled to its power-saving state). All timing
+numbers in the report must be measured on mains power.
+
+---
+
+## Entry 11: Getting the fine-tuned model into Ollama
+
+**Problem.** `ollama create` accepted the exported GGUF, but loading failed: `tensor
+'blk.0.ssm_beta.weight' not found`. Comparing tensor names in both files showed why: the
+llama.cpp converter Unsloth used on Colab is newer than the one inside Ollama 0.40.16 (already
+the latest stable release). It **fuses** pairs of Qwen3.5 linear-attention tensors
+(`attn_qkv` + `attn_gate` -> `attn_qkv_gate`; `ssm_beta` + `ssm_alpha` -> `ssm_beta_alpha`;
+`ssm_dt` -> `ssm_dt.bias`), and Ollama expects them separate.
+
+**Fix: [scripts/patch_gguf.py](scripts/patch_gguf.py).** The fused tensors belong to the
+linear-attention layers, which LoRA never touched (it targets q/k/v/o and the MLP projections).
+So the script copies Ollama's own base `qwen3.5:4b` GGUF, which loads fine, and overwrites
+every tensor present in both files with the same name and shape with the fine-tuned version.
+302 tensors were copied byte for byte. 4 `attn_v` tensors had a different quantisation type
+(Q4_K in the export, Q6_K in the base) and were re-encoded to Q6_K. The `gguf` library can't
+encode Q6_K, so the script includes a small encoder following ggml's block layout.
+
+**Checks.**
+- Q6_K encoder round-trip through the official decoder: 1.4% relative error, normal for 6-bit.
+- Untouched tensor (blk.0 `attn_qkv`, the first rows of the fused tensor) vs base: 7.5%. That
+  is quantisation noise (the two files quantise it differently); a wrong layout would give
+  ~140%. This confirms the "LoRA didn't touch it" assumption and the fused row order.
+- Fine-tuned tensors vs base: 7-9%, about the same as the noise. LoRA changes are small, so
+  this check alone can't show that the fine-tune is present. The behaviour test does.
+- Behaviour, same prompts and system prompt as the app:
+  - Hinglish message: the fine-tuned model replied in Roman Hinglish with "aap". The base
+    replied in Devanagari, with "tum" and a masculine "समझ सकता हूँ", both forbidden by the
+    persona.
+  - Replies are much shorter and faster (4-6 s vs 7-21 s).
+  - But the fine-tuned replies validate less ("So you are feeling lonely because you don't
+    have any friends here?"), the question-heavy style of the ESConv data.
+
+---
+
 ## Next
 
-- Choose the generator model (4B: fast but weak; 9B: good but slow; or Llama-3.1-8B, the
-  planned fine-tuning base, which fits in VRAM).
-- Step 5: knowledge base + retrieval (BGE-M3 + FAISS + reranker), so techniques and facts come
-  from trusted sources.
-- Waiting on the user: native-speaker review of `eval_set.csv` and `pilot_review.md`.
-- The background translation run continues; then `filter` and `format`.
+Deadline: about 2026-11-18.
+- User: re-run `notebooks/finetune_saathi.ipynb` (1 epoch; Kaggle or Colab once the quota resets); bring back `saathi_lora.zip` + the GGUF.
+- Load the fine-tuned model into Ollama (`scripts/make_ollama_model.py`).
+- `scripts/run_eval.py`: the ablation (base + prompt, + RAG, fine-tuned + RAG, +
+  transliteration) on the eval set, with output-check pass rates and an LLM-as-judge rubric.
+- README with results, safety and ethics, limitations; demo GIF.
+- Still waiting on a native speaker: review of `eval_set.csv`, the crisis templates and the
+  Hindi knowledge-base cards.

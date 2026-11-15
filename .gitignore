@@ -35,3 +35,5 @@ data/processed/*.jsonl
 data/processed/*.log
 data/processed/filter_report.json
 results/.crisis_llm_cache.json
+!data/kb/index.faiss
+results/.translit_cache.json

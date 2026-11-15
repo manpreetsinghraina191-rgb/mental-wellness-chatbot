@@ -1,0 +1,142 @@
+[
+  {
+    "id": "tele-manas",
+    "topic": "helpline",
+    "technique_type": "fact",
+    "source": "Ministry of Health and Family Welfare (PIB, 2024); Tele-MANAS programme",
+    "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2024/oct/doc20241013415701.pdf",
+    "en": "Tele-MANAS is the Government of India's free mental-health helpline. You can call 14416 or 1-800-891-4416 at any time, 24x7, and it supports many Indian languages. It was launched in October 2022 by the Ministry of Health and Family Welfare, with NIMHANS Bengaluru as a nodal centre. Trained counsellors listen and give support, and if needed they can connect you to a mental-health specialist. Calling does not mean something is 'wrong' with you; it is a confidential place to talk about stress, sadness, worry, sleep problems or thoughts of self-harm.",
+    "hi": "Tele-MANAS भारत सरकार की एक मुफ्त मानसिक स्वास्थ्य हेल्पलाइन है। आप कभी भी, 24x7, 14416 या 1-800-891-4416 पर कॉल कर सकते हैं, और यह कई भारतीय भाषाओं में सहायता प्रदान करती है। इसे अक्टूबर 2022 में स्वास्थ्य और परिवार कल्याण मंत्रालय द्वारा लॉन्च किया गया था, जिसमें NIMHANS बेंगलुरु एक नोडल सेंटर के रूप में था। प्रशिक्षित काउंसलर आपकी बात सुनते हैं और आपको सहारा देते हैं, और ज़रूरत पड़ने पर वे आपको मानसिक स्वास्थ्य विशेषज्ञ से भी जोड़ सकते हैं। कॉल करने का मतलब यह बिल्कुल नहीं है कि आप में कुछ 'गलत' है; यह तनाव, उदासी, चिंता, नींद की समस्याओं या खुद को नुकसान पहुँचाने के विचारों के बारे में बात करने के लिए एक गोपनीय और सुरक्षित जगह है।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "emergency-112",
+    "topic": "helpline",
+    "technique_type": "fact",
+    "source": "Emergency Response Support System, Government of India",
+    "url": "https://112.gov.in/",
+    "en": "112 is India's single emergency number for police, fire and medical help. If you or someone else is in immediate danger, for example has taken pills or is about to hurt themselves, call 112 straight away or go to the nearest hospital emergency department. Stay with the person if it is safe to do so.",
+    "hi": "112 पुलिस, आग और मेडिकल सहायता के लिए भारत का एक ही आपातकालीन नंबर है। यदि आप या कोई और तुरंत खतरे में है, जैसे किसी ने बहुत सारी गोलियाँ खा ली हैं या खुद को चोट पहुँचाने वाला है, तो तुरंत 112 पर कॉल करें या नज़दीकी अस्पताल के आपातकालीन विभाग में जाएँ। यदि ऐसा करना सुरक्षित हो तो उस व्यक्ति के साथ रहें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "depression-what",
+    "topic": "depression",
+    "technique_type": "fact",
+    "source": "World Health Organization, Depression fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+    "en": "Depression is a common mental health condition. It is different from the normal ups and downs of mood. Common signs include feeling sad, irritable or empty, losing interest or pleasure in activities, poor concentration, low self-worth or excessive guilt, hopelessness about the future, disturbed sleep, changes in appetite, and feeling very tired. WHO estimates that about 5% of adults worldwide live with depression, and it is more common in women. Depression is treatable, mainly with psychological therapies such as talking therapy.",
+    "hi": "डिप्रेशन (अवसाद) एक आम मानसिक स्वास्थ्य समस्या है। यह मूड के सामान्य उतार-चढ़ाव से अलग होता है। इसके सामान्य लक्षणों में उदास, चिड़चिड़ा या खाली महसूस करना, जिन कामों में पहले मज़ा आता था उनमें रुचि या खुशी खो देना, एकाग्रता की कमी, आत्म-सम्मान में कमी या बहुत ज़्यादा अपराधबोध, भविष्य के प्रति निराशा, नींद में गड़बड़ी, भूख में बदलाव और बहुत ज़्यादा थका हुआ महसूस करना शामिल हैं। WHO का अनुमान है कि दुनिया भर में लगभग 5% वयस्क डिप्रेशन के साथ जी रहे हैं, और यह महिलाओं में ज़्यादा आम है। डिप्रेशन का इलाज संभव है, मुख्य रूप से मनोवैज्ञानिक उपचारों जैसे कि टॉक थेरेपी (बातचीत चिकित्सा) से।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "sadness-vs-depression",
+    "topic": "depression",
+    "technique_type": "fact",
+    "source": "World Health Organization, Depression fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+    "en": "Everyone feels sad or low sometimes, especially after something difficult like a breakup, a failure or a loss. That is a normal human reaction. WHO describes a depressive episode as a low mood or loss of interest that lasts most of the day, nearly every day, for at least two weeks, and affects daily life. Only a trained professional can assess this. If low mood has lasted for weeks or is making daily life hard, it is a good idea to talk to a doctor, a counsellor or Tele-MANAS (14416).",
+    "hi": "हर कोई कभी-कभी उदास या निराश महसूस करता है, खासकर किसी मुश्किल चीज़ के बाद जैसे ब्रेकअप, असफलता या किसी अपने को खोने पर। यह एक सामान्य मानवीय प्रतिक्रिया है। WHO एक डिप्रेशन के दौर को ऐसे कम मूड या रुचि के नुकसान के रूप में बताता है जो कम से कम दो हफ्तों तक, लगभग हर दिन, दिन के ज़्यादातर समय रहता है, और रोज़मर्रा की ज़िंदगी को प्रभावित करता है। इसका आकलन केवल एक प्रशिक्षित पेशेवर ही कर सकता है। यदि आपका मूड हफ्तों तक खराब रहा है या रोज़मर्रा की ज़िंदगी को मुश्किल बना रहा है, तो डॉक्टर, काउंसलर या Tele-MANAS (14416) से बात करना एक अच्छा विचार है।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "depression-selfcare",
+    "topic": "low mood",
+    "technique_type": "self-care",
+    "source": "World Health Organization, Depression fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+    "en": "Self-care steps that WHO suggests when mood is low: keep doing activities you used to enjoy, even in a small way; stay connected with friends and family; exercise regularly, even a short walk; keep regular eating and sleeping habits; avoid or cut down on alcohol and avoid drugs; and talk to someone you trust about how you feel. Small steps count. If things do not improve, reach out to a health worker or counsellor.",
+    "hi": "जब आपका मूड खराब हो तो WHO द्वारा सुझाए गए सेल्फ-केयर के तरीके: उन गतिविधियों को करते रहें जिनका आप पहले आनंद लेते थे, भले ही छोटे पैमाने पर ही क्यों न हो; दोस्तों और परिवार से जुड़े रहें; नियमित रूप से व्यायाम करें, भले ही एक छोटी सैर ही क्यों न हो; खाने और सोने की नियमित आदतें बनाए रखें; शराब से बचें या कम करें और नशीली दवाओं से बचें; और किसी ऐसे व्यक्ति से बात करें जिस पर आप भरोसा करते हैं कि आप कैसा महसूस करते हैं। छोटे कदम भी बहुत मायने रखते हैं। यदि चीजें बेहतर नहीं होती हैं, तो किसी स्वास्थ्य कार्यकर्ता या काउंसलर से संपर्क करें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "anxiety-what",
+    "topic": "anxiety",
+    "technique_type": "fact",
+    "source": "World Health Organization, Anxiety disorders fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders",
+    "en": "Everyone feels anxious sometimes, for example before an exam or an interview. Anxiety becomes a problem when fear and worry are intense, hard to control and last a long time. Common signs include trouble concentrating, feeling restless or irritable, a racing heartbeat, sweating or trembling, an upset stomach, sleep problems and a sense of something bad about to happen. Anxiety disorders are the most common mental health conditions worldwide, and they are treatable, especially with psychological therapies such as cognitive behavioural therapy.",
+    "hi": "हर कोई कभी-कभी घबराहट महसूस करता है, जैसे परीक्षा या इंटरव्यू से पहले। घबराहट तब एक समस्या बन जाती है जब डर और चिंता बहुत ज़्यादा हों, उन्हें काबू करना मुश्किल हो और वे लंबे समय तक रहें। इसके आम लक्षणों में ध्यान लगाने में दिक्कत, बेचैनी या चिड़चिड़ापन महसूस करना, दिल की धड़कन तेज़ होना, पसीना आना या काँपना, पेट खराब होना, नींद की समस्याएँ और कुछ बुरा होने का डर शामिल हैं। Anxiety disorders दुनिया भर में सबसे आम मानसिक स्वास्थ्य समस्याएँ हैं, और इनका इलाज संभव है, खासकर cognitive behavioural therapy जैसी मनोवैज्ञानिक थेरेपीज़ से।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "anxiety-selfcare",
+    "topic": "anxiety",
+    "technique_type": "self-care",
+    "source": "World Health Organization, Anxiety disorders fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders",
+    "en": "Things that can help with anxiety, according to WHO: limit alcohol and avoid drugs, which can make anxiety worse; exercise regularly, even short walks; keep regular eating and sleep routines; practise relaxation such as slow breathing and progressive muscle relaxation; and build a habit of mindfulness meditation, even for a few minutes a day.",
+    "hi": "WHO के अनुसार, कुछ बातें जो एंग्ज़ाइटी में मदद कर सकती हैं: शराब कम पिएँ और नशीली दवाओं से बचें, क्योंकि ये एंग्ज़ाइटी को बढ़ा सकती हैं; रोज़ाना कसरत करें, छोटी सैर भी; खाने और सोने का एक नियमित रूटीन बनाएँ; धीमी साँस लेने और progressive muscle relaxation जैसी रिलैक्सेशन तकनीकों का अभ्यास करें; और रोज़ाना कुछ मिनटों के लिए ही सही, mindfulness meditation की आदत डालें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "breathing-exercise",
+    "topic": "anxiety",
+    "technique_type": "breathing",
+    "source": "NHS, Breathing exercises for stress",
+    "url": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
+    "en": "A simple calming breathing exercise (NHS): 1) Sit with your back supported and feet flat on the floor, or lie down, and loosen anything tight. 2) Let your breath go down into your belly, as deep as is comfortable, without forcing it. 3) Breathe in through your nose, slowly and steadily, counting from 1 to 5. 4) Breathe out gently through your mouth, again counting from 1 to 5. 5) Keep going for at least 5 minutes. You may not reach 5 at first; that is fine. It works best when practised every day, not only when you are stressed.",
+    "hi": "एक आसान शांत करने वाली साँस लेने की कसरत (NHS): 1) पीठ को सहारा देकर और पैरों को ज़मीन पर सीधा रखकर बैठें, या लेट जाएँ, और जो भी कसा हुआ हो उसे ढीला कर लें। 2) अपनी साँस को पेट तक जाने दें, जितना आराम से जा सके, ज़बरदस्ती न करें। 3) अपनी नाक से धीरे-धीरे और लगातार साँस अंदर लें, 1 से 5 तक गिनते हुए। 4) अपने मुँह से धीरे से साँस बाहर छोड़ें, फिर से 1 से 5 तक गिनते हुए। 5) कम से कम 5 मिनट तक ऐसे ही करते रहें। हो सकता है शुरुआत में आप 5 तक न पहुँच पाएँ; यह ठीक है। यह सबसे अच्छा तब काम करता है जब इसका अभ्यास रोज़ाना किया जाए, न कि सिर्फ़ तब जब आप तनाव में हों।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "grounding-54321",
+    "topic": "anxiety",
+    "technique_type": "grounding",
+    "source": "Vancouver Island University Counselling Services, 5-4-3-2-1 exercise",
+    "url": "https://services.viu.ca/counselling/5-4-3-2-1-exercise",
+    "en": "The 5-4-3-2-1 grounding exercise brings your attention back to the present when anxiety or panic makes it hard to think. Slowly notice and name: 5 things you can see; 4 things you can hear; 3 things you can feel, like the chair under you or your clothes on your skin; 2 things you can smell or taste (it is fine if there is nothing); and then take 1 slow, mindful breath. If it does not help, try another technique or talk to a counsellor.",
+    "hi": "5-4-3-2-1 ग्राउंडिंग कसरत आपका ध्यान वर्तमान में वापस लाती है जब एंग्ज़ाइटी या पैनिक के कारण सोचना मुश्किल हो जाता है। धीरे-धीरे ध्यान दें और नाम लें: 5 चीज़ें जो आप देख सकते हैं; 4 चीज़ें जो आप सुन सकते हैं; 3 चीज़ें जो आप महसूस कर सकते हैं, जैसे आपके नीचे कुर्सी या आपकी त्वचा पर आपके कपड़े; 2 चीज़ें जिनकी आपको गंध आ सकती है या स्वाद ले सकते हैं (अगर कुछ न हो तो भी ठीक है); और फिर 1 धीमी, ध्यानपूर्ण साँस लें। अगर इससे मदद न मिले, तो कोई और तकनीक आज़माएँ या किसी काउंसलर से बात करें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "sleep-hygiene",
+    "topic": "sleep",
+    "technique_type": "sleep",
+    "source": "NHS Every Mind Matters, Sleep",
+    "url": "https://www.nhs.uk/every-mind-matters/mental-health-issues/sleep/",
+    "en": "Tips for better sleep (NHS): go to bed and wake up at about the same time every day; give yourself time to wind down in the evening; keep your bedroom dark, quiet and at a comfortable temperature; avoid tea, coffee, cola and energy drinks, smoking and alcohol for at least 6 hours before bed; avoid heavy meals late at night; put your phone away before bed; and be active earlier in the day rather than in the 4 hours before sleep. If worries keep you awake, writing them down before bed can help.",
+    "hi": "बेहतर नींद के लिए सुझाव (NHS): हर दिन लगभग एक ही समय पर सोएँ और जागें; शाम को खुद को शांत होने का समय दें; अपने बेडरूम को अँधेरा, शांत और आरामदायक तापमान पर रखें; सोने से कम से कम 6 घंटे पहले चाय, कॉफ़ी, कोला और energy drinks, धूम्रपान और शराब से बचें; देर रात भारी भोजन से बचें; सोने से पहले अपना फ़ोन दूर रख दें; और दिन में पहले सक्रिय रहें बजाय सोने से 4 घंटे पहले के। अगर चिंताएँ आपको जगाए रखती हैं, तो सोने से पहले उन्हें लिख लेना मदद कर सकता है।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "thought-reframing",
+    "topic": "negative thoughts",
+    "technique_type": "cbt",
+    "source": "NHS Every Mind Matters, Reframing unhelpful thoughts",
+    "url": "https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/reframing-unhelpful-thoughts/",
+    "en": "Catch it, check it, change it (a CBT technique). 1) Catch it: notice an unhelpful thought, such as expecting the worst, seeing only the bad parts, all-or-nothing thinking, or blaming yourself for everything. 2) Check it: ask yourself how likely this really is, what the evidence is, whether there are other explanations, and what you would say to a friend who thought this. 3) Change it: replace it with a more balanced thought that fits the evidence. You do not have to change every thought; the aim is to think more flexibly.",
+    "hi": "इसे पकड़ें, जांचें, बदलें (एक CBT तकनीक)। 1) पकड़ें: किसी ऐसी सोच पर ध्यान दें जो आपके लिए अच्छी नहीं है, जैसे हमेशा सबसे बुरा होने की उम्मीद करना, सिर्फ़ बुरी बातें देखना, सब कुछ या कुछ भी नहीं वाली सोच रखना, या हर बात के लिए खुद को दोषी ठहराना। 2) जांचें: खुद से पूछें कि यह बात सच होने की कितनी संभावना है, इसके क्या सबूत हैं, क्या इसके कोई और कारण हो सकते हैं, और अगर आपका कोई दोस्त ऐसा सोचता तो आप उसे क्या कहते। 3) बदलें: इसे एक ज़्यादा संतुलित सोच से बदलें जो सबूतों से मेल खाती हो। आपको हर सोच को बदलने की ज़रूरत नहीं है; इसका मक़सद ज़्यादा लचीले ढंग से सोचना है।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "exam-stress",
+    "topic": "exam stress",
+    "technique_type": "self-care",
+    "source": "Combined from WHO anxiety guidance and NHS breathing and sleep pages (cards above)",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders",
+    "en": "Feeling stressed before exams is very common and a normal reaction to pressure. Things that can help: break study into small chunks with short breaks; keep regular sleep and meal times, because sleep helps memory; take short walks or other exercise; use a slow breathing exercise when you feel panic rising; notice all-or-nothing thoughts like 'if I fail this, my life is over' and check them against the evidence; and talk to someone you trust. Your worth is not decided by one exam.",
+    "hi": "परीक्षा से पहले तनाव महसूस करना बहुत आम है और दबाव के प्रति एक सामान्य प्रतिक्रिया है। जो बातें मदद कर सकती हैं: पढ़ाई को छोटे-छोटे हिस्सों में बांटें और बीच-बीच में छोटे ब्रेक लें; सोने और खाने का समय नियमित रखें, क्योंकि नींद याददाश्त में मदद करती है; थोड़ी देर टहलें या कोई और व्यायाम करें; जब घबराहट महसूस हो तो धीमी साँस लेने का अभ्यास करें; 'अगर मैं इसमें फेल हो गया, तो मेरी ज़िंदगी ख़त्म हो जाएगी' जैसी 'सब कुछ या कुछ भी नहीं' वाली सोच पर ध्यान दें और सबूतों के आधार पर उनकी जांच करें; और किसी ऐसे व्यक्ति से बात करें जिस पर आप भरोसा करते हैं। आपकी क़ीमत किसी एक परीक्षा से तय नहीं होती।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "loneliness",
+    "topic": "loneliness",
+    "technique_type": "self-care",
+    "source": "World Health Organization, Depression fact sheet (self-help: stay connected)",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+    "en": "Feeling lonely, for example after moving to a new city or hostel, is common and painful, and it is not a sign that something is wrong with you. Small steps to feel more connected: message or call one person you trust; join a group around something you enjoy, like a sport, hobby, faith or volunteering group; say yes to small invitations even when it feels hard; and keep a regular routine. Talking about how you feel, to a friend, family member or counsellor, often makes it lighter.",
+    "hi": "अकेलापन महसूस करना, जैसे किसी नए शहर या हॉस्टल में जाने के बाद, आम और दर्दनाक हो सकता है, और यह इस बात का संकेत नहीं है कि आप में कुछ ग़लत है। ज़्यादा जुड़ा हुआ महसूस करने के लिए छोटे क़दम: किसी एक ऐसे व्यक्ति को मैसेज या कॉल करें जिस पर आप भरोसा करते हैं; किसी ऐसी चीज़ से जुड़े समूह में शामिल हों जिसका आप आनंद लेते हैं, जैसे कोई खेल, शौक, धार्मिक या स्वयंसेवी समूह; छोटी-छोटी दावतों को हाँ कहें, भले ही यह मुश्किल लगे; और एक नियमित दिनचर्या बनाए रखें। अपनी भावनाओं के बारे में किसी दोस्त, परिवार के सदस्य या काउंसलर से बात करने से अक्सर मन हल्का हो जाता है।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "seeking-help",
+    "topic": "help seeking",
+    "technique_type": "fact",
+    "source": "World Health Organization, Depression and Anxiety disorders fact sheets",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+    "en": "Talking to a counsellor or doctor does not mean you are weak or 'mad'. Mental health conditions like depression and anxiety are common and treatable, yet many people who need help never receive it. A counsellor helps you understand what you are going through and learn ways to cope. Good first steps: talk to someone you trust, call Tele-MANAS (14416, free and confidential), or speak to a doctor or your college counselling centre. Only a professional can assess or diagnose a mental health condition.",
+    "hi": "किसी काउंसलर या डॉक्टर से बात करने का मतलब यह नहीं है कि आप कमज़ोर हैं या 'पागल' हैं। डिप्रेशन और एंग्ज़ायटी जैसी मानसिक स्वास्थ्य स्थितियाँ आम हैं और इनका इलाज संभव है, फिर भी बहुत से लोग जिन्हें मदद की ज़रूरत होती है, उन्हें कभी नहीं मिलती। एक काउंसलर आपको यह समझने में मदद करता है कि आप किस दौर से गुज़र रहे हैं और उससे निपटने के तरीक़े सिखाता है। अच्छे पहले क़दम: किसी ऐसे व्यक्ति से बात करें जिस पर आप भरोसा करते हैं, Tele-MANAS (14416, मुफ़्त और गोपनीय) पर कॉल करें, या किसी डॉक्टर या अपने कॉलेज के काउंसलिंग सेंटर से बात करें। केवल एक पेशेवर ही किसी मानसिक स्वास्थ्य स्थिति का आकलन या निदान कर सकता है।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  }
+]

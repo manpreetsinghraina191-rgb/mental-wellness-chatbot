@@ -1,0 +1,18 @@
+
+USER: presentation se pehle panic ho jata hai, koi breathing exercise batao na
+  [16.2s | queries=['presentation se pehle panic ho jata hai, koi breathing exercise batao na', 'presentation से पहले panic हो जाता है, कोई breathing exercise बताओ ना'] | sources=['grounding-54321', 'exam-stress', 'breathing-exercise'] | problems=[]]
+BOT: Aapki presentation se pehle ki darr aur tension bilkul normal hai, aur bahut log isse tezi se samajh lete hain.
+
+Breathing exercise try kar sakte hain: 1) Aaram se baith jayein ya let jayein aur sar ko halka karein. 2) Nas se dheere-dheere saans lein, count karke 1 se 5 tak. 3) Muth se achi tarah saans nikalein, phir se 1 se 5 tak count karein. Yeh process kam se kam 5 minute ke liye chalayen, bina zor diye.
+
+USER: neend jaldi aane ke liye kuch tips do, 3 baje tak jaagta rehta hu
+  [15.4s | queries=['neend jaldi aane ke liye kuch tips do, 3 baje tak jaagta rehta hoon', 'नेंद जल्दी आने के लिए कुछ टिप्स दो, 3 बजे तक जागता रहता हूँ'] | sources=['sleep-hygiene', 'breathing-exercise', 'grounding-54321'] | problems=[]]
+BOT: Aapki neend na aane ki dard aur 3 baje tak jaagne se pareshan hona bilkul samajh aa raha hai, yeh ek bohot common stress ka hissa hai.
+
+NHS ke tips ke mutabik, shayad sabse zaroori hai ki aap raat ko phone door rakhein aur apne kamre ko gehra surakshit aur thanda rakhna koshish karein; sone se pehle heavy khana nahi khayein aur shaam ko light meals lein.
+
+Kya aap abhi neend lene ke liye kamre mein hain ya fir thoda waqt tak baith kar in steps try kar rahe hain?
+
+USER: Tele-MANAS kya hai? kya ye free hai?
+  [13.2s | queries=['Tele-MANAS kya hai? kya ye free hai?', 'Tele-MANAS क्या है? क्या यह फ्री है?'] | sources=['tele-manas', 'seeking-help'] | problems=[]]
+BOT: Haan, Tele-MANAS ek government ka khud ki suvidha hai jo puri tarah se free hai aur 24x7 chalti hai. Yahan trained counsellors aapki madad karne ke liye ready hain aur yeh confidential bhi hai. Kya aap abhi kuch stress ya pareshani ke baare mein baat karna chahte hain?

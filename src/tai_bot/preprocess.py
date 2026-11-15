@@ -181,10 +181,14 @@ def to_devanagari(text: str) -> str | None:
     return " ".join(out)
 
 
+# The first version listed example English words ("anxiety, exam, stress") and the 4B model
+# sometimes appended them to its output, so the instruction now has a worked example instead.
 TRANSLIT_PROMPT = (
-    "Convert the Hindi words in this Romanized Hindi text to Devanagari. "
-    "Keep English words (like anxiety, exam, stress) in Latin script. "
-    "Return only the converted text.\n\nText: {text}"
+    "Rewrite this Romanized Hindi text in Devanagari script. Write Hindi words in Devanagari; "
+    "you may keep English words in Latin letters. Do not translate, do not add or remove any "
+    "words, and return only the rewritten text.\n\n"
+    "Example: mujhe office ka bahut tension hai -> मुझे office का बहुत tension है\n\n"
+    "Text: {text}"
 )
 
 # Any callable prompt -> completion string (wraps a LangChain LLM, an API client, or a mock).

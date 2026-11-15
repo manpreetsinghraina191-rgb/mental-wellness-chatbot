@@ -198,3 +198,59 @@ def test_output_check_rejects_invented_phone_numbers() -> None:
     res = check_reply("Please call the helpline at 98765 43210 for support right now.", "english")
     assert any(p.startswith("unknown_number") for p in res.problems)
     assert check_reply("Please call Tele-MANAS at 14416 or 112 if you feel unsafe.", "english").ok
+    assert check_reply("Try the 5-4-3-2-1 grounding exercise for a minute.", "english").ok
+
+
+def test_english_prompt_has_no_hindi_examples() -> None:
+    from tai_bot.prompts import build_system_prompt
+
+    assert "मुझे" not in build_system_prompt("english")
+    assert "aap" not in build_system_prompt("english")
+    assert "मुझे" in build_system_prompt("roman_hindi")  # Hindi prompts unchanged from training
+
+
+# --- retrieval node (step 5) -----------------------------------------------------------------
+
+
+class FakeHit:
+    def __init__(self, card_id: str, text: str) -> None:
+        self.card_id, self.text, self.source, self.url = card_id, text, "NHS", "https://x"
+        self.score, self.rerank = 0.8, 0.9
+
+
+class FakeRetriever:
+    def __init__(self) -> None:
+        self.calls: list[tuple[list[str], str]] = []
+
+    def search(self, queries: list[str], reply_lang: str = "en") -> list[FakeHit]:
+        self.calls.append((queries, reply_lang))
+        return [FakeHit("breathing-exercise", "Breathe in counting 1 to 5, out counting 1 to 5.")]
+
+
+def test_retrieved_context_reaches_the_generator_with_sources() -> None:
+    fake, retriever = FakeChat(), FakeRetriever()
+    graph = build_graph(chat=fake, classifier=lambda _p: '{"risk":"none"}',
+                        router=lambda _p: ROUTE_OK, retriever=retriever)  # fmt: skip
+    out = respond(graph, "r1", "प्रेज़ेंटेशन से पहले घबराहट हो जाती है, कोई साँस वाली एक्सरसाइज़ बताइए")
+    assert retriever.calls[0][1] == "hi"  # Hindi card text for a Devanagari reply
+    assert "counting 1 to 5" in fake.calls[0][0]["content"]
+    assert out["sources"][0]["card"] == "breathing-exercise"
+
+
+def test_no_retrieval_for_greetings_or_crisis() -> None:
+    retriever = FakeRetriever()
+    graph = build_graph(chat=FakeChat(), classifier=lambda _p: '{"risk":"none"}',
+                        router=lambda _p: ROUTE_OK, retriever=retriever)  # fmt: skip
+    respond(graph, "r2", "hi")
+    respond(graph, "r3", "I want to kill myself")
+    assert retriever.calls == []
+
+
+def test_retrieval_failure_does_not_block_reply() -> None:
+    class Broken:
+        def search(self, *_: object, **__: object) -> list[FakeHit]:
+            raise RuntimeError("index missing")
+
+    graph = build_graph(chat=FakeChat(), router=lambda _p: ROUTE_OK, retriever=Broken())
+    out = respond(graph, "r4", "I can't sleep at night")
+    assert out["response"] and out["context"] == []
