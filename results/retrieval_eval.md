@@ -1,29 +1,27 @@
 # Retrieval evaluation
 
-50 queries from the eval set (38 with a relevant card, 12 off-topic negatives). Knowledge base: 14 cards x 2 languages. BGE-M3 dense + FAISS, bge-reranker-v2-m3, threshold filtering. Hinglish transliteration by local `qwen3.5:4b`.
+Query sets: original = 50 eval-set queries (12 of them off-topic negatives); new topics = 27 queries for the cards added later, written before testing. Knowledge base: 25 cards x 2 languages. BGE-M3 dense + FAISS, bge-reranker-v2-m3, threshold filtering. Hinglish transliteration by local `qwen3.5:4b`. Recall@3 with a 95% Wilson interval.
 
-| Config | Language | Recall@3 | MRR | Off-topic queries given context |
-|---|---|---|---|---|
-| dense only | english | 100% | 0.94 | 0/4 |
-| dense only | roman_hindi | 50% | 0.44 | 0/4 |
-| dense only | devanagari | 100% | 0.92 | 0/4 |
-| dense only | mixed | 100% | 1.00 | 0/0 |
-| dense only | all | 84% | 0.78 | 0/12 |
-| dense + reranker | english | 100% | 0.88 | 0/4 |
-| dense + reranker | roman_hindi | 50% | 0.50 | 0/4 |
-| dense + reranker | devanagari | 100% | 0.92 | 0/4 |
-| dense + reranker | mixed | 100% | 1.00 | 0/0 |
-| dense + reranker | all | 84% | 0.78 | 0/12 |
-| dense + translit (Hinglish) | english | 100% | 0.94 | 0/4 |
-| dense + translit (Hinglish) | roman_hindi | 100% | 0.92 | 1/4 |
-| dense + translit (Hinglish) | devanagari | 100% | 0.92 | 0/4 |
-| dense + translit (Hinglish) | mixed | 100% | 1.00 | 0/0 |
-| dense + translit (Hinglish) | all | 100% | 0.93 | 1/12 |
-| dense + translit + reranker | english | 100% | 0.88 | 0/4 |
-| dense + translit + reranker | roman_hindi | 100% | 0.90 | 1/4 |
-| dense + translit + reranker | devanagari | 100% | 0.92 | 0/4 |
-| dense + translit + reranker | mixed | 100% | 1.00 | 0/0 |
-| dense + translit + reranker | all | 100% | 0.90 | 1/12 |
+| Query set | Config | Language | Recall@3 | MRR | Off-topic queries given context |
+|---|---|---|---|---|---|
+| original | dense only | english | 100% (12/12; CI 76-100%) | 0.90 | 0/4 |
+| original | dense only | roman_hindi | 42% (5/12; CI 19-68%) | 0.42 | 0/4 |
+| original | dense only | devanagari | 100% (12/12; CI 76-100%) | 0.86 | 1/4 |
+| original | dense only | mixed | 100% (2/2; CI 34-100%) | 1.00 | 0/0 |
+| original | dense only | all | 82% (31/38; CI 67-91%) | 0.74 | 1/12 |
+| original | dense + translit (Hinglish) | english | 100% (12/12; CI 76-100%) | 0.90 | 0/4 |
+| original | dense + translit (Hinglish) | roman_hindi | 100% (12/12; CI 76-100%) | 0.88 | 2/4 |
+| original | dense + translit (Hinglish) | devanagari | 100% (12/12; CI 76-100%) | 0.86 | 1/4 |
+| original | dense + translit (Hinglish) | mixed | 100% (2/2; CI 34-100%) | 1.00 | 0/0 |
+| original | dense + translit (Hinglish) | all | 100% (38/38; CI 91-100%) | 0.89 | 3/12 |
+| new topics | dense only | english | 100% (9/9; CI 70-100%) | 0.94 | 0/0 |
+| new topics | dense only | roman_hindi | 33% (3/9; CI 12-65%) | 0.33 | 0/0 |
+| new topics | dense only | devanagari | 100% (9/9; CI 70-100%) | 1.00 | 0/0 |
+| new topics | dense only | all | 78% (21/27; CI 59-89%) | 0.76 | 0/0 |
+| new topics | dense + translit (Hinglish) | english | 100% (9/9; CI 70-100%) | 0.94 | 0/0 |
+| new topics | dense + translit (Hinglish) | roman_hindi | 100% (9/9; CI 70-100%) | 1.00 | 0/0 |
+| new topics | dense + translit (Hinglish) | devanagari | 100% (9/9; CI 70-100%) | 1.00 | 0/0 |
+| new topics | dense + translit (Hinglish) | all | 100% (27/27; CI 88-100%) | 0.98 | 0/0 |
 
 Transliterations used (Hinglish -> Devanagari):
 
@@ -43,7 +41,16 @@ Transliterations used (Hinglish -> Devanagari):
 - `hg-off-02`: पिछले साल IPL फाइनल किसने जीता था?
 - `hg-off-03`: climate change पे मेरा college essay लिख दो please
 - `hg-off-04`: अभी कौन सा शेयर खरीदना चाहिए?
+- `rx-hg-01`: छोटी-छोटी बात पे इतना गुस्सा आता है कि सब पे चिल्ला देता हूँ
+- `rx-hg-02`: पिछले महीने दादी गज़र गई और अभी भी रोना नहीं रुकता
+- `rx-hg-03`: अचानक से दिल तेज़ धड़कने लगता है और साँस नहीं आती, क्या करूँ?
+- `rx-hg-04`: मेरे दोस्त ने कहा, उसे अब जीना नहीं है। मैं उसकी मदद कैसे करूँ?
+- `rx-hg-05`: मैनेजर रोज इतना काम देता है रोज १२ घंटे काम करना पड़ता है
+- `rx-hg-06`: None
+- `rx-hg-07`: घर पे रोज़ लड़ाई होती है और मम्मी पापा हमेशा कम्पेर कर रहे हैं
+- `rx-hg-08`: अगर कोई खुद को हर्ट करता है तो उसे हेल्प कहाँ मिल सकती है
+- `rx-hg-09`: कैसे पता चले कि मैं स्ट्रेसड हूँ बार-बार हेडache होता है और सब पे चिढ़ जाता हूँ
 
-Misses in the full configuration:
+Misses in the app's configuration (dense + translit):
 
 - none

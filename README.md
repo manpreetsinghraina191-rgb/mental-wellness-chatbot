@@ -29,7 +29,7 @@ written up step by step in [PROJECT_LOG.md](PROJECT_LOG.md).
   reply that is instructed to decline gently and suggest seeing a doctor, and the output
   rails check that reply like any other.
 - **Grounded advice.** Techniques and facts (breathing, grounding, sleep, Tele-MANAS, signs of
-  depression and anxiety) come from 14 sourced knowledge cards via BGE-M3 retrieval. Hinglish
+  depression and anxiety) come from 25 sourced knowledge cards via BGE-M3 retrieval. Hinglish
   queries are transliterated to Devanagari before searching.
 - **Output rails.** Every reply is checked for medicine names, diagnoses, dismissive phrases,
   the wrong script, excessive length and invented phone numbers. On failure it regenerates
@@ -51,7 +51,7 @@ flowchart LR
     X -->|none / low| R{Router<br/>rules + LLM}
     R -->|off-topic| RD[Fixed redirect]
     R -->|jailbreak| RF[Fixed refusal]
-    R -->|support / technique / info /<br/>medicine or diagnosis ask| RT[Retrieve<br/>BGE-M3 + FAISS<br/>14 sourced cards]
+    R -->|support / technique / info /<br/>medicine or diagnosis ask| RT[Retrieve<br/>BGE-M3 + FAISS<br/>25 sourced cards]
     RT --> G[Generate<br/>qwen3.5:4b, persona + context]
     G --> O{Output rails}
     O -->|fail once| G
@@ -108,17 +108,24 @@ definitions and the lexicon frozen (SHA-1 recorded and verified) before scoring.
 
 ### 2. Retrieval
 
-38 queries with a known relevant card, 12 off-topic negatives.
+Knowledge base: 25 cards in English and Hindi. Two query sets:
+- **original:** 38 eval-set queries with a known relevant card, plus 12 off-topic negatives;
+- **new topics:** 27 queries covering anger, grief, panic, work stress and the other topics
+  added later, written before testing.
+
 [results/retrieval_eval.md](results/retrieval_eval.md)
 
-| Configuration | Hinglish Recall@3 | All Recall@3 | MRR | Off-topic queries given context |
-|---|---|---|---|---|
-| BGE-M3 dense | 50% | 84% | 0.78 | 0/12 |
-| + reranker | 50% | 84% | 0.78 | 0/12 |
-| **+ Hinglish to Devanagari transliteration (used)** | **100%** | **100%** | **0.93** | 1/12 |
+| Configuration | Hinglish Recall@3 (original / new) | All Recall@3 (original / new) | Off-topic queries given context |
+|---|---|---|---|
+| BGE-M3 dense | 42% / 33% | 82% / 78% | 1/12 |
+| **+ Hinglish to Devanagari transliteration (used)** | **100% / 100%** | **100% (CI 91-100%) / 100% (CI 88-100%)** | 3/12 |
 
-BGE-M3 handles English and Devanagari well but Romanized Hindi poorly. Transliterating the
-query fixes that. The reranker added nothing at this knowledge-base size, so it is off.
+- **BGE-M3 handles English and Devanagari well but Romanized Hindi poorly.** Transliterating
+  the query fixes that on both query sets.
+- **The 3 off-topic hits are borderline,** with similarity 0.45-0.46 against a 0.45 threshold.
+  In the app they never happen, because the router redirects off-topic messages before
+  retrieval. The threshold was deliberately not re-tuned on these test queries.
+- **The reranker** (bge-reranker-v2-m3) added nothing with the first 14 cards, so it is off.
 
 ### 3. Ablation: base vs. retrieval vs. fine-tuned
 
@@ -213,7 +220,7 @@ only). Unsloth recommends against 4-bit QLoRA for Qwen3.5.
   medium. The blind-set misses are listed in the crisis results.
 - **qwen3.5:4b is a small model:** its wording is sometimes awkward, especially in Hinglish
   ("nas" for "naak").
-- **The knowledge base is small (14 cards):** questions outside it get no grounding.
+- **The knowledge base is small (25 cards):** questions outside it get no grounding. The ablation (section 3) was run with the first 14 cards.
 - **It is a demo, not a deployable service:** there is no human-review queue behind the
   review flag, and it has not been tested with real users or clinicians.
 

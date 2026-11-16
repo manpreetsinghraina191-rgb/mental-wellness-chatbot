@@ -138,5 +138,115 @@
     "en": "Talking to a counsellor or doctor does not mean you are weak or 'mad'. Mental health conditions like depression and anxiety are common and treatable, yet many people who need help never receive it. A counsellor helps you understand what you are going through and learn ways to cope. Good first steps: talk to someone you trust, call Tele-MANAS (14416, free and confidential), or speak to a doctor or your college counselling centre. Only a professional can assess or diagnose a mental health condition.",
     "hi": "किसी काउंसलर या डॉक्टर से बात करने का मतलब यह नहीं है कि आप कमज़ोर हैं या 'पागल' हैं। डिप्रेशन और एंग्ज़ायटी जैसी मानसिक स्वास्थ्य स्थितियाँ आम हैं और इनका इलाज संभव है, फिर भी बहुत से लोग जिन्हें मदद की ज़रूरत होती है, उन्हें कभी नहीं मिलती। एक काउंसलर आपको यह समझने में मदद करता है कि आप किस दौर से गुज़र रहे हैं और उससे निपटने के तरीक़े सिखाता है। अच्छे पहले क़दम: किसी ऐसे व्यक्ति से बात करें जिस पर आप भरोसा करते हैं, Tele-MANAS (14416, मुफ़्त और गोपनीय) पर कॉल करें, या किसी डॉक्टर या अपने कॉलेज के काउंसलिंग सेंटर से बात करें। केवल एक पेशेवर ही किसी मानसिक स्वास्थ्य स्थिति का आकलन या निदान कर सकता है।",
     "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "anger",
+    "topic": "anger",
+    "technique_type": "self-help",
+    "source": "NHS, Anger",
+    "url": "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/anger/",
+    "en": "Managing anger (NHS): most people feel angry sometimes. Try to notice early when anger is starting, so you can calm down before it builds. Pause before reacting: count to 10 and try a slow, calming breathing exercise. Talk about what is making you angry with someone who is not involved in the situation, like a friend or a doctor. Exercise such as walking, running, swimming or yoga can help you relax. Set small, achievable goals instead of trying to fix everything at once, and avoid alcohol, smoking or drugs to cope. If anger feels out of control, or you are hurting or threatening someone, get help from a doctor or counsellor.",
+    "hi": "गुस्से को संभालना (NHS की सलाह): गुस्सा कभी-कभी सबको आता है। जब गुस्सा आना शुरू हो, तो उसे जल्दी पहचानने की कोशिश करें, ताकि वो बढ़ने से पहले आप शांत हो सकें। कुछ भी करने से पहले रुकें: 10 तक गिनें और धीरे-धीरे गहरी साँस लेने की कसरत करें। जिस बात पर गुस्सा आ रहा है, उसके बारे में किसी ऐसे व्यक्ति से बात करें जो उस स्थिति में शामिल न हो, जैसे कोई दोस्त या डॉक्टर। चलना, दौड़ना, तैरना या योग जैसी कसरत आपको आराम पहुँचा सकती है। एक साथ सब कुछ ठीक करने की कोशिश करने के बजाय, छोटे और पूरे किए जा सकने वाले लक्ष्य तय करें, और गुस्से से निपटने के लिए शराब, सिगरेट या नशीली दवाओं से बचें। अगर आपको लगता है कि आपका गुस्सा बेकाबू हो रहा है, या आप किसी को चोट पहुँचा रहे हैं या धमका रहे हैं, तो डॉक्टर या काउंसलर से मदद लें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "grief-loss",
+    "topic": "grief",
+    "technique_type": "information",
+    "source": "NHS, Grief after bereavement or loss",
+    "url": "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/grief-bereavement-loss/",
+    "en": "Grief and loss (NHS): grief can follow the death of someone close, but also a relationship or breakup ending, losing a job or home, or a loved one becoming seriously ill. It can bring shock or numbness, deep sadness and crying, tiredness, anger and guilt. These feelings come and go, often without warning, and usually become less intense over time. It can help to talk with someone you trust, keep regular meals and some exercise, set small goals, and avoid alcohol or drugs to cope. If grief stays very intense for many months, makes daily life very hard, or brings thoughts of not wanting to live, please talk to a doctor.",
+    "hi": "दुख और किसी को खोना (NHS की सलाह): दुख किसी करीबी की मौत के बाद हो सकता है, लेकिन यह किसी रिश्ते के खत्म होने, नौकरी या घर छूटने, या किसी अपने के गंभीर रूप से बीमार होने पर भी हो सकता है। इसमें सदमा या सुन्नपन, गहरा दुख और रोना, थकान, गुस्सा और अपराधबोध महसूस हो सकता है। ये भावनाएँ अक्सर बिना किसी चेतावनी के आती-जाती रहती हैं, और समय के साथ आमतौर पर कम तीव्र होती जाती हैं। किसी भरोसेमंद व्यक्ति से बात करना, नियमित भोजन करना और थोड़ी कसरत करना, छोटे लक्ष्य तय करना, और दुख से निपटने के लिए शराब या नशीली दवाओं से बचना मददगार हो सकता है। अगर दुख कई महीनों तक बहुत तीव्र रहता है, रोज़मर्रा की ज़िंदगी को बहुत मुश्किल बना देता है, या जीने की इच्छा न होने के विचार आते हैं, तो कृपया डॉक्टर से बात करें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "panic-attack",
+    "topic": "anxiety",
+    "technique_type": "technique",
+    "source": "NHS, Panic disorder",
+    "url": "https://www.nhs.uk/mental-health/conditions/panic-disorder/",
+    "en": "During a panic attack (NHS): a panic attack is a sudden rush of intense fear with physical symptoms such as a pounding heart, sweating, trembling, breathlessness, chest pain, dizziness or feeling faint. Most panic attacks last between 5 and 20 minutes. What can help while it happens: stay where you are, if you can; breathe slowly and deeply; remind yourself that the attack will pass; focus on calm, peaceful images; and remember that a panic attack is frightening but not life-threatening. If panic attacks keep happening, talk to a doctor.",
+    "hi": "पैनिक अटैक के दौरान (NHS की सलाह): पैनिक अटैक अचानक से होने वाला बहुत तेज़ डर होता है, जिसमें दिल की धड़कन तेज़ होना, पसीना आना, काँपना, साँस फूलना, सीने में दर्द, चक्कर आना या बेहोशी जैसा महसूस होना जैसे शारीरिक लक्षण दिखते हैं। ज़्यादातर पैनिक अटैक 5 से 20 मिनट तक रहते हैं। जब ऐसा हो तो क्या मदद कर सकता है: अगर हो सके तो जहाँ हैं वहीं रहें; धीरे और गहरी साँस लें; खुद को याद दिलाएँ कि यह अटैक गुज़र जाएगा; शांत और सुकून देने वाली चीज़ों पर ध्यान दें; और याद रखें कि पैनिक अटैक डरावना ज़रूर होता है, लेकिन जानलेवा नहीं। अगर पैनिक अटैक बार-बार होते रहते हैं, तो डॉक्टर से बात करें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "suicidal-thoughts-help",
+    "topic": "crisis",
+    "technique_type": "information",
+    "source": "NHS, Help for suicidal thoughts; Tele-MANAS (MoHFW)",
+    "url": "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/behaviours/help-for-suicidal-thoughts/",
+    "en": "If you or someone you know has thoughts of suicide (NHS advice, India helplines): it is important to tell someone. In India, call Tele-MANAS on 14416 (free, 24x7) or 112 in an emergency, and go to the nearest hospital if someone has harmed themselves or may be about to. Right now: get to a safe place, like a friend's house, be around other people, stay away from alcohol and drugs, and focus on getting through today rather than the future. Over the next days: let family or friends you trust know what is going on, see a doctor, and do something you usually enjoy. If you are worried about a friend, ask them gently and listen without judging.",
+    "hi": "अगर आपको या आपके किसी जानने वाले को आत्महत्या के विचार आते हैं (NHS की सलाह, भारत में हेल्पलाइन): किसी को बताना बहुत ज़रूरी है। भारत में, Tele-MANAS पर 14416 (मुफ्त, 24x7) पर कॉल करें या आपात स्थिति में 112 पर कॉल करें, और अगर किसी ने खुद को नुकसान पहुँचाया है या पहुँचाने वाला है, तो तुरंत नज़दीकी अस्पताल जाएँ। अभी तुरंत: किसी सुरक्षित जगह पर जाएँ, जैसे किसी दोस्त के घर; दूसरे लोगों के साथ रहें; शराब और नशीली दवाओं से दूर रहें; और भविष्य के बजाय आज का दिन निकालने पर ध्यान दें। अगले कुछ दिनों में: अपने भरोसेमंद परिवार या दोस्तों को बताएँ कि क्या हो रहा है; डॉक्टर से मिलें; और कुछ ऐसा करें जिसका आप आमतौर पर आनंद लेते हैं। अगर आप किसी दोस्त के बारे में चिंतित हैं, तो उनसे धीरे से पूछें और बिना किसी राय के उनकी बात सुनें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "self-harm-help",
+    "topic": "crisis",
+    "technique_type": "information",
+    "source": "NHS, Self-harm: getting help; Tele-MANAS (MoHFW)",
+    "url": "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/behaviours/self-harm/getting-help/",
+    "en": "Getting help for self-harm (NHS advice, India helplines): support is available for anyone who self-harms or thinks about it, and for their friends and family. It is best to talk to a doctor, and to get support as soon as possible. Listening services offer confidential support from trained people, and you can talk about anything that is troubling you, no matter how difficult. In India, Tele-MANAS (14416) is free and available 24x7; in an emergency call 112. Telling one trusted person what is going on can be a first step.",
+    "hi": "खुद को नुकसान पहुँचाने पर मदद पाना (NHS की सलाह, भारत में हेल्पलाइन): जो कोई भी खुद को नुकसान पहुँचाता है या उसके बारे में सोचता है, और उनके दोस्तों व परिवार के लिए मदद उपलब्ध है। डॉक्टर से बात करना और जितनी जल्दी हो सके मदद लेना सबसे अच्छा है। सुनने वाली सेवाएँ (Listening services) प्रशिक्षित लोगों से गोपनीय सहायता प्रदान करती हैं, और आप अपनी किसी भी परेशानी के बारे में बात कर सकते हैं, चाहे वह कितनी भी मुश्किल क्यों न हो। भारत में, Tele-MANAS (14416) मुफ्त और 24x7 उपलब्ध है; आपात स्थिति में 112 पर कॉल करें। किसी एक भरोसेमंद व्यक्ति को यह बताना कि क्या हो रहा है, पहला कदम हो सकता है।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "five-steps-wellbeing",
+    "topic": "wellbeing",
+    "technique_type": "self-help",
+    "source": "NHS, 5 steps to mental wellbeing",
+    "url": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/five-steps-to-mental-wellbeing/",
+    "en": "Five steps to mental wellbeing (NHS): 1) Connect with other people, for example eat together as a family, call a friend you have not seen in a while, or video-call people far away instead of only texting. 2) Be physically active in a way you enjoy; you do not need hours in a gym. 3) Learn a new skill, like cooking a new recipe or starting a hobby. 4) Help other people: thank someone, ask how they are and really listen, or volunteer. 5) Pay attention to the present moment: notice your thoughts, feelings, body and surroundings as they are right now (mindfulness).",
+    "hi": "मानसिक सेहत के लिए पाँच आसान कदम (NHS): 1) लोगों से जुड़ें। जैसे, परिवार के साथ मिलकर खाना खाएँ, किसी पुराने दोस्त को फ़ोन करें जिससे आप काफ़ी समय से नहीं मिले, या दूर बैठे लोगों को सिर्फ़ मैसेज करने के बजाय वीडियो कॉल करें। 2) शारीरिक रूप से सक्रिय रहें, कोई ऐसी गतिविधि करें जिसमें आपको मज़ा आता हो। इसके लिए आपको घंटों जिम में पसीना बहाने की ज़रूरत नहीं है। 3) कोई नई चीज़ सीखें, जैसे कोई नई डिश बनाना या कोई नया शौक शुरू करना। 4) दूसरों की मदद करें: किसी को धन्यवाद दें, उनसे पूछें कि वे कैसे हैं और उनकी बात ध्यान से सुनें, या किसी नेक काम में स्वयंसेवक बनें। 5) वर्तमान पल पर ध्यान दें: अपने विचारों, भावनाओं, शरीर और अपने आस-पास की चीज़ों पर ध्यान दें कि वे अभी कैसी हैं (माइंडफ़ुलनेस)।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "stress-tips",
+    "topic": "stress",
+    "technique_type": "self-help",
+    "source": "NHS, 10 stress busters",
+    "url": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/tips-to-reduce-stress/",
+    "en": "Ways to reduce stress (NHS): be active, which can lower the intensity of what you feel; take control of what you can and look for solutions that suit you; lean on friends, family or colleagues; keep some time for yourself each week; avoid relying on alcohol, smoking or caffeine; help others, even with a small favour each day; work smarter by doing the most important tasks first and accepting that you will not finish everything; each day write down three things that went well or that you are grateful for; and accept what you cannot change, putting your energy into what you can.",
+    "hi": "तनाव कम करने के तरीके (NHS): सक्रिय रहें, इससे आपकी भावनाओं की तीव्रता कम हो सकती है; जिन चीज़ों पर आपका नियंत्रण है, उन पर ध्यान दें और अपने लिए सही समाधान खोजें; दोस्तों, परिवार या सहकर्मियों का सहारा लें; हर हफ़्ते अपने लिए कुछ समय निकालें; शराब, धूम्रपान या कैफ़ीन पर निर्भर रहने से बचें; दूसरों की मदद करें, भले ही हर दिन एक छोटा सा काम ही क्यों न हो; समझदारी से काम करें, सबसे ज़रूरी काम पहले करें और यह स्वीकार करें कि आप सब कुछ खत्म नहीं कर पाएंगे; हर दिन तीन ऐसी बातें लिखें जो अच्छी हुईं या जिनके लिए आप आभारी हैं; और उन चीज़ों को स्वीकार करें जिन्हें आप बदल नहीं सकते, अपनी ऊर्जा उन चीज़ों में लगाएँ जिन्हें आप बदल सकते हैं।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "stress-signs",
+    "topic": "stress",
+    "technique_type": "information",
+    "source": "NHS Every Mind Matters, Stress",
+    "url": "https://www.nhs.uk/every-mind-matters/mental-health-issues/stress/",
+    "en": "Signs of stress (NHS Every Mind Matters): emotional signs include irritability, anger or tearfulness, worry, feeling overwhelmed, racing thoughts and trouble making decisions. Physical signs include headaches, muscle pain, stomach problems, dizziness or feeling sick. Behaviour can change too: eating differently, drinking or smoking more, or avoiding people and things you usually enjoy. What helps: split big tasks into smaller, manageable chunks and give yourself credit when you finish one, and plan ahead with a to-do list for busy days.",
+    "hi": "तनाव के लक्षण (NHS Every Mind Matters): भावनात्मक लक्षणों में चिड़चिड़ापन, गुस्सा या रोना, चिंता, अभिभूत महसूस करना, तेज़ी से आते विचार और निर्णय लेने में परेशानी शामिल हैं। शारीरिक लक्षणों में सिरदर्द, मांसपेशियों में दर्द, पेट की समस्याएँ, चक्कर आना या बीमार महसूस करना शामिल हैं। व्यवहार भी बदल सकता है: अलग तरह से खाना, ज़्यादा शराब पीना या धूम्रपान करना, या उन लोगों और चीज़ों से बचना जिनका आप आमतौर पर आनंद लेते हैं। क्या मदद करता है: बड़े कामों को छोटे, प्रबंधनीय हिस्सों में बाँटें और जब आप एक हिस्सा पूरा करें तो खुद को शाबाशी दें, और व्यस्त दिनों के लिए एक 'टू-डू' लिस्ट बनाकर पहले से योजना बनाएँ।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "work-stress",
+    "topic": "work",
+    "technique_type": "information",
+    "source": "WHO, Mental health at work (fact sheet)",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/mental-health-at-work",
+    "en": "Work and mental health (WHO): risks at work include excessive workloads and understaffing, long or inflexible hours, little control over your work, bullying, harassment or discrimination, poor support from managers or colleagues, job insecurity and low pay, and conflict between home and work demands. Workplaces can help with flexible working arrangements, managers trained to notice distress, and reasonable adjustments such as flexible hours. For yourself, stress-management skills and regular physical activity outside work can help. Depression and anxiety cost about 12 billion working days every year worldwide, so you are far from alone.",
+    "hi": "काम और मानसिक स्वास्थ्य (WHO): काम पर जोखिमों में अत्यधिक काम का बोझ और कर्मचारियों की कमी, लंबे या अनियमित घंटे, अपने काम पर कम नियंत्रण, धमकाना, उत्पीड़न या भेदभाव, प्रबंधकों या सहकर्मियों से खराब समर्थन, नौकरी की असुरक्षा और कम वेतन, और घर और काम की माँगों के बीच टकराव शामिल हैं। कार्यस्थल लचीली कार्य व्यवस्था, संकट को पहचानने के लिए प्रशिक्षित प्रबंधक, और लचीले घंटों जैसे उचित समायोजन के साथ मदद कर सकते हैं। अपने लिए, तनाव-प्रबंधन कौशल और काम के बाहर नियमित शारीरिक गतिविधि मदद कर सकती है। दुनिया भर में हर साल डिप्रेशन और एंग्ज़ाइटी के कारण लगभग 12 अरब कार्य दिवसों का नुकसान होता है, इसलिए आप अकेले नहीं हैं।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "exercise-mood",
+    "topic": "depression",
+    "technique_type": "self-help",
+    "source": "NHS, Exercise for depression",
+    "url": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/exercise-for-depression/",
+    "en": "Physical activity and mood (NHS): regular exercise can lift your mood, especially when low mood or depression is less severe, and even a brisk 10-minute walk can clear your mind and help you relax. Adults are advised to do about 150 minutes of moderate activity a week, but if you have been inactive, start gently and build up slowly. Pick something you enjoy and can do regularly, such as walking, cycling, yoga, dancing or a team sport. If you have health concerns, ask a doctor before starting.",
+    "hi": "शारीरिक गतिविधि और मूड (NHS): नियमित व्यायाम आपके मूड को बेहतर बना सकता है, खासकर जब उदासी या डिप्रेशन कम गंभीर हो, और यहाँ तक कि 10 मिनट की तेज़ चाल भी आपके दिमाग को साफ़ कर सकती है और आपको आराम करने में मदद कर सकती है। वयस्कों को हर हफ़्ते लगभग 150 मिनट की मध्यम गतिविधि करने की सलाह दी जाती है, लेकिन अगर आप निष्क्रिय रहे हैं, तो धीरे-धीरे शुरू करें और धीरे-धीरे बढ़ाएँ। कुछ ऐसा चुनें जिसका आप आनंद लेते हैं और जिसे नियमित रूप से कर सकते हैं, जैसे चलना, साइकिल चलाना, योग, नृत्य या कोई टीम खेल। यदि आपको स्वास्थ्य संबंधी कोई चिंता है, तो शुरू करने से पहले डॉक्टर से पूछें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
+  },
+  {
+    "id": "family-pressure",
+    "topic": "family",
+    "technique_type": "self-help",
+    "source": "Combines NHS advice on anger, stress and wellbeing (see those cards)",
+    "url": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/tips-to-reduce-stress/",
+    "en": "Coping with family pressure or conflict (combining NHS advice): constant comparison, arguments or expectations at home can leave you feeling stressed, angry or worthless. It can help to talk it through with someone who is not involved, like a friend, teacher or counsellor; to pause and breathe slowly before reacting in an argument; and to focus on what you can control rather than what you cannot change. Keeping some time for yourself, staying active and connecting with people who support you can make it easier to cope. If there is violence or abuse at home, you deserve to be safe: call 112 in an emergency.",
+    "hi": "परिवार के दबाव या झगड़ों से निपटना (NHS की सलाह पर आधारित): घर पर लगातार तुलना, झगड़े या बहुत ज़्यादा उम्मीदें आपको तनावग्रस्त, गुस्सा या खुद को बेकार महसूस करा सकती हैं। ऐसे में, किसी ऐसे व्यक्ति से बात करना मददगार हो सकता है जो इस मामले में शामिल न हो, जैसे कोई दोस्त, टीचर या काउंसलर। किसी बहस या झगड़े में तुरंत जवाब देने से पहले थोड़ा रुकें और धीरे-धीरे साँस लें। उन चीज़ों पर ध्यान दें जिन्हें आप नियंत्रित कर सकते हैं, बजाय उनके जिन्हें आप बदल नहीं सकते। अपने लिए थोड़ा समय निकालना, सक्रिय रहना और उन लोगों से जुड़े रहना जो आपका साथ देते हैं, इन सब से निपटना आसान हो सकता है। अगर घर में हिंसा या दुर्व्यवहार हो रहा है, तो आपको सुरक्षित रहने का पूरा हक है: आपातकाल में 112 पर कॉल करें।",
+    "hi_translated_by": "gemini:gemini-2.5-flash"
   }
 ]

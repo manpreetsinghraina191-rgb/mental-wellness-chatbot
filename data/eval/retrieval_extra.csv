@@ -1,0 +1,28 @@
+id,lang,text,relevant
+rx-en-01,english,I get so angry at small things and end up shouting at everyone,anger|family-pressure
+rx-hg-01,roman_hindi,chhoti chhoti baat pe itna gussa aata hai ki sab pe chilla deta hu,anger|family-pressure
+rx-hi-01,devanagari,छोटी-छोटी बातों पर इतना गुस्सा आता है कि सब पर चिल्ला देता हूँ,anger|family-pressure
+rx-en-02,english,my grandmother passed away last month and I still can't stop crying,grief-loss
+rx-hg-02,roman_hindi,pichle mahine dadi guzar gayi aur abhi bhi rona nahi rukta,grief-loss
+rx-hi-02,devanagari,पिछले महीने दादी गुज़र गईं और अब भी रोना नहीं रुकता,grief-loss
+rx-en-03,english,my heart starts pounding and I can't breathe properly out of nowhere what do I do,panic-attack|breathing-exercise|anxiety-what
+rx-hg-03,roman_hindi,achanak se dil tez dhadakne lagta hai aur saans nahi aati kya karu,panic-attack|breathing-exercise|anxiety-what
+rx-hi-03,devanagari,अचानक दिल तेज़ धड़कने लगता है और साँस नहीं आती क्या करूँ,panic-attack|breathing-exercise|anxiety-what
+rx-en-04,english,my friend told me he doesn't want to live anymore how can I help him,suicidal-thoughts-help|tele-manas
+rx-hg-04,roman_hindi,mere dost ne bola use ab jeena nahi hai main uski madad kaise karu,suicidal-thoughts-help|tele-manas
+rx-hi-04,devanagari,मेरे दोस्त ने कहा उसे अब जीना नहीं है मैं उसकी मदद कैसे करूँ,suicidal-thoughts-help|tele-manas
+rx-en-05,english,my manager keeps piling on work and I'm working 12 hours every day,work-stress|stress-tips
+rx-hg-05,roman_hindi,manager roz itna kaam de deta hai roz 12 ghante kaam karna padta hai,work-stress|stress-tips
+rx-hi-05,devanagari,मैनेजर रोज़ इतना काम दे देता है कि रोज़ 12 घंटे काम करना पड़ता है,work-stress|stress-tips
+rx-en-06,english,does going for a walk or exercising actually help when I feel low,exercise-mood|depression-selfcare
+rx-hg-06,roman_hindi,mood down ho to walk ya exercise karne se sach me fark padta hai kya,exercise-mood|depression-selfcare
+rx-hi-06,devanagari,मन उदास हो तो टहलने या व्यायाम करने से सच में फ़र्क पड़ता है क्या,exercise-mood|depression-selfcare
+rx-en-07,english,there are fights at home every day and my parents never stop comparing me,family-pressure
+rx-hg-07,roman_hindi,ghar pe roz ladai hoti hai aur mummy papa hamesha compare karte rehte hain,family-pressure
+rx-hi-07,devanagari,घर पर रोज़ लड़ाई होती है और मम्मी पापा हमेशा तुलना करते रहते हैं,family-pressure
+rx-en-08,english,where can someone get help if they have been hurting themselves,self-harm-help|tele-manas
+rx-hg-08,roman_hindi,agar koi khud ko hurt karta hai to use help kahan mil sakti hai,self-harm-help|tele-manas
+rx-hi-08,devanagari,अगर कोई खुद को चोट पहुँचाता है तो उसे मदद कहाँ मिल सकती है,self-harm-help|tele-manas
+rx-en-09,english,how do I know if I am stressed I keep getting headaches and snapping at people,stress-signs|stress-tips
+rx-hg-09,roman_hindi,kaise pata chale ki main stressed hu baar baar headache hota hai aur sab pe chidh jata hu,stress-signs|stress-tips
+rx-hi-09,devanagari,कैसे पता चले कि मैं तनाव में हूँ बार-बार सिरदर्द होता है और सब पर चिढ़ जाता हूँ,stress-signs|stress-tips

@@ -760,6 +760,49 @@ messages (94 crisis):
 
 ---
 
+## Entry 15: Knowledge base 14 -> 25 cards
+
+**New cards** (each written only from its source page, read at build time):
+- anger, grief and loss (including breakups), panic attacks, stress signs, 10 stress tips,
+  5 steps to wellbeing, exercise and mood: all NHS
+- work and mental health: WHO fact sheet (risks such as excessive workload, harassment,
+  insecurity; ~12 billion working days lost a year)
+- help for suicidal thoughts, getting help for self-harm: NHS advice
+- family pressure: combines the NHS advice above, and says so on the card
+
+**Two design decisions.**
+1. The NHS crisis pages list UK numbers. The cards keep only the general advice and give
+   Tele-MANAS 14416 and 112, because the output rails allow only those two numbers. A
+   card with other numbers would make the model's correct replies fail the rails.
+2. The two crisis-related cards are only reached by non-crisis messages, e.g. "my friend
+   says he doesn't want to live, how can I help?". Messages rated high risk still go to the
+   fixed protocol and never to retrieval.
+
+Hindi versions were translated by gemini-2.5-flash, as before.
+
+**Evaluation.**
+- 27 new questions (9 topics x 3 languages) were written **before** the index was tested
+  ([data/eval/retrieval_extra.csv](data/eval/retrieval_extra.csv)).
+- `eval_retrieval.py` now reports both query sets with Wilson intervals. It has a
+  `--no-reranker` option: the CPU reranker made a run take over 10 minutes, and on battery it
+  stalled overnight.
+
+| | Dense only (Hinglish / all) | Dense + transliteration (Hinglish / all) |
+|---|---|---|
+| Original 38 queries | 42% / 82% | **100% / 100%** (CI 91-100%) |
+| New 27 queries | 33% / 78% | **100% / 100%** (CI 88-100%) |
+
+- **The new cards didn't hurt the old queries,** and transliteration matters even more on
+  the new topics.
+- **Off-topic queries that got a card rose from 1/12 to 3/12.** All three sit right at the
+  threshold (0.45-0.46), e.g. Hinglish and Hindi "which share should I buy?" matched
+  suicidal-thoughts-help at 0.45. In the app the router redirects off-topic messages before
+  retrieval, so users never see this. The threshold was **not** re-tuned on the test queries,
+  which would overfit them.
+- **Not re-run:** the ablation (entry 12) used the 14-card knowledge base.
+
+---
+
 ## Next
 
 Deadline: about 2026-11-18.
