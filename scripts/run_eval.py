@@ -220,6 +220,59 @@ def pct(xs: list[bool]) -> str:
     return f"{100 * sum(xs) / len(xs):.0f}%" if xs else "n/a"
 
 
+def significance(
+    per_variant: dict[str, list[dict[str, Any]]], judged: dict[str, dict[str, Any]]
+) -> list[str]:
+    """Paired comparisons against base_rag (the demo) on the same messages."""
+    from tai_bot.stats import mcnemar_exact, paired_bootstrap
+
+    ref_name = "base_rag"
+    if ref_name not in per_variant:
+        return []
+    ref = {r["id"]: r for r in per_variant[ref_name]}
+    out = [
+        f"## Is the difference real? (each variant vs {ref_name}, same messages)",
+        "",
+        "First-reply pass: exact McNemar test (only messages where the two disagree count). "
+        "Judge scores: mean difference with a 95% paired-bootstrap interval; an interval "
+        "that excludes 0 means a real difference at this sample size.",
+        "",
+        "| Comparison | Messages | First reply passes: only A / only B, p | Empathy diff "
+        "| Naturalness diff | Helpfulness diff |",
+        "|---|---|---|---|---|---|",
+    ]
+
+    def row(label: str, rows: list[dict[str, Any]], refs: dict[str, dict[str, Any]]) -> str:
+        pairs = [(r, refs[r["id"]]) for r in rows if r["id"] in refs]
+        a, b = [p[0]["raw_ok"] for p in pairs], [p[1]["raw_ok"] for p in pairs]
+        only_a, only_b, p = mcnemar_exact(a, b)
+        cells = []
+        for m in ("empathy", "naturalness", "helpfulness"):
+            scored = [
+                (judged[judge_key(x)][m], judged[judge_key(y)][m])
+                for x, y in pairs
+                if judge_key(x) in judged and judge_key(y) in judged
+            ]
+            if not scored:
+                cells.append("n/a")
+                continue
+            mean, lo, hi = paired_bootstrap([s[0] for s in scored], [s[1] for s in scored])
+            cells.append(f"{mean:+.2f} [{lo:+.2f}, {hi:+.2f}]")
+        return (
+            f"| {label} | {len(pairs)} | {only_a} / {only_b}, p={p:.3f} | "
+            + " | ".join(cells)
+            + " |"
+        )
+
+    for v, rows in per_variant.items():
+        if v != ref_name:
+            out.append(row(f"A={v}, B={ref_name}", rows, ref))
+    if "base" in per_variant:
+        hg = [r for r in per_variant["base"] if r["lang"] == "roman_hindi"]
+        out.append(row(f"A=base, B={ref_name} (Hinglish only)", hg, ref))
+    return [*out, ""]
+
+
 def cmd_report(args: argparse.Namespace) -> None:
     judged = {r["key"]: r for r in read_jsonl(JUDGE_CACHE)}
     lines = [
@@ -259,6 +312,7 @@ def cmd_report(args: argparse.Namespace) -> None:
         return out
 
     lines += ["## All languages", "", *table(None), ""]
+    lines += significance(per_variant, judged)
     for lang in ("english", "roman_hindi", "devanagari", "mixed"):
         lines += [f"## {LANG_NAMES[lang]}", "", *table(lang), ""]
 

@@ -685,6 +685,81 @@ Hindi.
 
 ---
 
+## Entry 13: Confidence intervals and significance tests
+
+**Why.** The eval sets are small (40 blind crisis messages, 71 ablation replies), so a
+percentage alone overstates what we know. New module [src/tai_bot/stats.py](src/tai_bot/stats.py)
+(no scipy; tested against reference values):
+- **Wilson 95% interval** for every rate. It stays sensible at small n and near 0/100%,
+  where the textbook +-1.96*SE interval breaks: 13/13 gives 77-100%, not "100% +- 0".
+- **Exact McNemar test** for pass/fail on the same messages. Only messages where the two
+  systems disagree carry information.
+- **Paired bootstrap** (10,000 resamples) for differences in mean judge scores.
+
+**What changed in the conclusions.**
+- Crisis recall 92% has a 95% CI of 80-97%. Per language the intervals are wide (Hindi 85%,
+  CI 58-96%), because there are only 13-14 crisis messages per language. That's the reason to
+  enlarge the blind set (next step).
+- **I had overstated the retrieval result.** "Hinglish 61% -> 83%" is 5 messages fixed and 0
+  broken: p = 0.062, not significant at 0.05. It is a consistent trend only, and the judge
+  scores show no significant change either. Retrieval stays because it grounds facts
+  (correct NHS breathing steps, Tele-MANAS details), which these metrics don't measure
+  directly.
+- The fine-tune's quality drop is clearly real (empathy -2.07 [-2.35, -1.79], helpfulness
+  -2.18 [-2.45, -1.90]). Its language-following gain over base + RAG is not significant
+  (p = 0.22).
+
+---
+
+## Entry 14: Doubling the blind crisis set
+
+**Why.** With 40 crisis messages, recall 92% had a 95% interval of 80-97%, and the
+per-language intervals were 30-40 points wide (Hindi 58-96%).
+
+**Batch 2** ([data/eval/heldout_crisis_v2.csv](data/eval/heldout_crisis_v2.csv),
+`make_heldout_crisis.py --v2`):
+- 125 messages from a **different model family** (Groq gpt-oss-120b), so the test isn't
+  tuned to one model's style.
+- Crisis-heavy, with varied speakers (students, a new mother, a farmer in debt, a homemaker,
+  an elderly widower, a daily-wage worker…), and at least 9 of every 15 crisis messages
+  required to be indirect.
+- Checked against all existing messages for duplicates. Groq returns HTTP 400 when the
+  model's JSON is invalid, so the script retries.
+- The "English" request often produced Hinglish, so each message's language was re-tagged
+  with our own script detector (24 moved).
+
+**Label check.** The student reviewed the file and judged the labels acceptable but didn't
+fill in the column, so the assistant went through every row against the written definitions
+**before running any detector on the batch**. Every decision and reason is in the
+`label_checked` / `check_note` / `checked_by` columns.
+- 95 kept; **12 relabelled (11% of kept rows)**, e.g. "friends moved on, I feel useless" from
+  high to medium, since it says nothing about death or self-harm.
+- **18 excluded:** 8 near-duplicates, 10 unclear or with broken Hindi.
+- The 11% disagreement with the generating model shows why LLM-written labels can't be used
+  unchecked. **Caveat:** the checker is not independent of the system's author; a
+  native-speaker or clinical re-check is listed as future work.
+
+**Result** (lexicon hash verified unchanged: `40df1de1…`). Combined detector on 205 blind
+messages (94 crisis):
+
+| | Before (98 msgs, 40 crisis) | Now (205 msgs, 94 crisis) |
+|---|---|---|
+| Recall | 92% (80-97%) | **90% (83-95%)** |
+| Precision | 92% (80-97%) | **94% (88-98%)** |
+| Safe messages flagged high | 6% (2-19%) | **5% (2-15%)** |
+| Hindi recall | 85% (58-96%) | 93% (79-98%) |
+
+- The headline number held up on more than twice the data, and its interval narrowed from
+  17 points to 12. The apparent Hindi weakness was mostly small-sample noise.
+- **Severity of the 9 misses:** 6 were rated medium (they still get a gentle safety check-in
+  and a review flag) and only 3 (3%) got no safety response. All 3 are very indirect: making
+  a will, giving favourite things away, "sabko meri chutti de doon".
+- The frozen lexicon alone catches 18% of unseen crisis phrasings, and it produced one new
+  false alarm ("going to die of stress"). Kept unchanged on purpose, so that the blind result
+  stays honest.
+
+---
+
 ## Next
 
 Deadline: about 2026-11-18.
