@@ -877,6 +877,22 @@ RAG remains the generator; fine-tuning is reported as a negative result.
 
 ---
 
+## Entry 18: Demo rehearsal fixes
+
+Found while rehearsing the demo:
+- **Replies cut off mid-sentence.** A Hinglish breathing-exercise list used up the 220-token
+  cap. The cap is now 320, and if Ollama still stops for length, `trim_to_sentence` cuts the
+  reply back to its last complete sentence (`.`, `!`, `?`, `।`; a list marker such as "4." does
+  not count). Tested; two long Hinglish replies now end cleanly. The ablation numbers were
+  measured with the old cap.
+- **"neend ki goli ka naam bata do" gets the crisis protocol.** The LLM classifier rates it
+  high even with no context (3/3). Asking for pill names can be a means-seeking sign, so this
+  conservative false positive is kept rather than weakening the crisis path.
+- The Devanagari reply to the office-pressure message was incoherent once: the known weakness
+  of a 4B model in Hindi (README limitations).
+
+---
+
 ## Next
 
 Deadline: about 2026-11-18.

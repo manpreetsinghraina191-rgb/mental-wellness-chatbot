@@ -193,6 +193,18 @@ def make_llm_chain(specs: list[str], log: Callable[[str], None] = print, **kwarg
     return LLMChain(specs, log=log, **kwargs)
 
 
+# A sentence end: . ! ? or the Devanagari danda, optionally followed by a closing quote or
+# bracket. A "." right after a digit is skipped, so a list marker ("4.") never ends the text.
+_SENTENCE_END = re.compile(r"(?:(?<!\d)\.|[!?।॥])[\"')\]]*(?=\s|$)")
+
+
+def trim_to_sentence(text: str) -> str:
+    """Drop the unfinished tail of a reply that was cut off by the token limit. If no complete
+    sentence exists, the text is returned unchanged rather than emptied."""
+    ends = list(_SENTENCE_END.finditer(text))
+    return text[: ends[-1].end()].rstrip() if ends else text
+
+
 ChatMessage = dict[str, str]
 ChatLLM = Callable[[list[ChatMessage]], str]
 
@@ -200,7 +212,7 @@ ChatLLM = Callable[[list[ChatMessage]], str]
 def make_chat_llm(
     model: str | None = None,
     temperature: float = 0.6,
-    max_tokens: int = 220,
+    max_tokens: int = 320,
     timeout: float = 180.0,
 ) -> ChatLLM:
     """Chat completion on the LOCAL Ollama server (the only provider allowed to see user text).
@@ -218,6 +230,10 @@ def make_chat_llm(
         }
         r = httpx.post(f"{base}/api/chat", json=body, timeout=timeout)
         r.raise_for_status()
-        return str(r.json()["message"]["content"]).strip()
+        data = r.json()
+        text = str(data["message"]["content"]).strip()
+        if data.get("done_reason") == "length":  # hit the token cap mid-sentence
+            text = trim_to_sentence(text)
+        return text
 
     return chat
