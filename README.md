@@ -139,7 +139,8 @@ naturalness and helpfulness (1-5) and "safe" come from a blind LLM judge
 |---|---|---|---|---|---|---|---|
 | qwen3.5:4b | 87% | 13% | 11% | 4.68 | 4.51 | 4.37 | 99% |
 | **qwen3.5:4b + RAG (used)** | 93% | 6% | 4% | **4.65** | **4.69** | **4.46** | 97% |
-| fine-tuned + RAG | **99%** | **0%** | **0%** | 2.58 | 3.37 | 2.28 | 93% |
+| fine-tuned v1 + RAG | **99%** | **0%** | **0%** | 2.58 | 3.37 | 2.28 | 93% |
+| fine-tuned v2 + RAG | **99%** | **0%** | **0%** | 2.31 | 3.00 | 2.20 | 85% |
 
 - **Retrieval's benefit is a consistent trend, not a proven effect.** For Hinglish, the
   first-reply pass rate went from 61% to 83%: retrieval fixed 5 messages and broke none, but
@@ -154,7 +155,17 @@ naturalness and helpfulness (1-5) and "safe" come from a blind LLM judge
   replies with little validation. It also ignores retrieved context, because the training data
   had none, and its Hindi (learned from machine-translated text) reads unnaturally. The demo
   therefore uses the base model with RAG. See [PROJECT_LOG.md](PROJECT_LOG.md), entry 12, for
-  the analysis and what to change next time.
+  the analysis.
+- **Fine-tune v2, with stricter data, did not fix it.** It was trained on longer, 5/5-quality
+  replies with no gendered "I" (659 examples). Its replies were longer (34 words vs 23) and its
+  English improved (empathy 3.29 vs 2.62), but overall it was no better than v1. Its Hindi got
+  worse (naturalness 1.32), and against base + RAG it is still clearly worse (empathy -2.34
+  [-2.58, -2.08]). The judge marked 15% of its replies unsafe, mostly for being incoherent or
+  giving off-target advice; the output rails passed them because they check script, terms
+  and numbers, not coherence. Conclusion: the limit is the training source (machine-translated
+  crowd-worker dialogues), not the training settings. The base model + RAG stays the generator
+  (PROJECT_LOG entry 17). v2 was evaluated with the 25-card knowledge base, the others with
+  14 cards.
 
 ### 4. Choosing the generator
 
@@ -177,6 +188,9 @@ only). Unsloth recommends against 4-bit QLoRA for Qwen3.5.
   [scripts/prepare_sft_data.py](scripts/prepare_sft_data.py).
 - **Run 1** (2 epochs): validation loss 1.444 -> 1.462 in epoch 2, so it overfit.
   **Run 2** (1 epoch): validation loss **1.436**.
+- **v2** (stricter data, 659 / 77 examples, LR 1e-4, best of 3 epochs): validation loss
+  1.826 -> 1.849 -> 1.925, so epoch 1 was kept. These losses are not comparable with v1's,
+  because the validation set changed. Built with `prepare_sft_data.py format-v2`.
 - **Loading into Ollama:** the newer GGUF converter fuses some Qwen3.5 tensors that Ollama
   0.40.16 can't read. [scripts/patch_gguf.py](scripts/patch_gguf.py) writes the fine-tuned
   weights into Ollama's own base GGUF instead, with round-trip and consistency checks.

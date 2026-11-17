@@ -277,3 +277,33 @@ def test_empty_llm_response_does_not_crash_the_run(tmp_path: Path) -> None:
     out = tmp_path / "t.jsonl"
     stats = translate_samples([_sample("s1"), _sample("s2")], blocked, out, log=lambda _: None)  # type: ignore[list-item]
     assert stats["failed"] == 2 and stats["translated"] == 0
+
+
+def test_v2_selection_rules() -> None:
+    from tai_bot.sft_data import is_question_only, v2_problem
+
+    assert is_question_only("How are you? What happened?")
+    assert not is_question_only("That sounds really hard. What happened?")
+    long = "That sounds really exhausting, and it makes sense that you feel low after a week like this. What has helped you before?"
+
+    def rec(replies: list[str], scores: list[int] | None = None) -> dict:
+        turns = []
+        for r in replies:
+            turns += [{"role": "user", "text": "hi"}, {"role": "assistant", "text": r}]
+        return {"en": turns, "scores": scores or [5] * len(replies)}
+
+    assert v2_problem(rec([long])) is None
+    assert v2_problem(rec([long], [4])) == "quality"
+    assert v2_problem(rec(["Okay, I see."])) == "short_final_reply"
+    assert v2_problem(rec(["How long has this been going on?", long])) == "short_reply"
+    question = "How long has this been going on for you, and have you talked to anyone about it so far at all?"
+    assert v2_problem(rec([question, long])) == "question_only"
+
+
+def test_gendered_supporter_pattern() -> None:
+    from tai_bot.sft_data import GENDERED_SELF
+
+    for t in ["main samajh sakta hoon", "मैं समझ गया", "मैं समझ सकती हूँ", "madad kar sakti hu"]:
+        assert GENDERED_SELF.search(t), t
+    for t in ["mujhe samajh aa raha hai", "मुझे लगता है", "aap kar sakte hain"]:
+        assert not GENDERED_SELF.search(t), t

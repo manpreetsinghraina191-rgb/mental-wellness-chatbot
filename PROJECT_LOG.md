@@ -803,6 +803,80 @@ Hindi versions were translated by gemini-2.5-flash, as before.
 
 ---
 
+## Entry 16: Fine-tune v2: fix the data, not the recipe
+
+**Diagnosis from v1** (entry 12), now measured on the training data itself:
+- Median supporter reply: 20 words. 47% end with a question.
+- About 1 in 4 Hindi/Hinglish examples have the supporter using a gendered "I" ("main samajh
+  sakta hoon", "मैं समझ गया"), against the persona.
+- The fine-tune copied all of this.
+
+**v2 selection** (`sft_data.v2_problem`, `select_v2`; `prepare_sft_data.py format-v2`):
+- every supporter reply in the window has at least 12 words, and the final one at least 20;
+- no supporter reply consists only of questions;
+- every translation scored 5/5 (v1 accepted 4);
+- the Hindi/Hinglish version is dropped when any supporter turn uses a gendered first
+  person (`GENDERED_SELF`; tested). The English version is kept.
+
+| | v1 data | v2 data |
+|---|---|---|
+| Examples (train / val) | 3,247 / 340 | 659 / 77 |
+| Median supporter reply | 20 words | 32 words |
+| Supporter replies ending in "?" | 47% | 30% |
+| Gendered supporter "I" (Hindi/Hinglish) | ~23% | 0 (filtered) |
+
+Records rejected: 467 short final reply, 318 translation below 5, 72 short earlier reply,
+56 question-only. Dropped for gendered "I": 76 Hindi and 77 Hinglish versions.
+
+**Training changes**, because the data is 5x smaller: LR 1e-4 (v1: 2e-4), so the model
+keeps more of the base model's abilities; up to 3 epochs, evaluated every epoch, keeping
+the best by validation loss. Everything else is unchanged (16-bit LoRA r=16, alpha=32).
+
+**Not addressed:** the training data still contains no retrieved context, so v2 may also
+learn to ignore the knowledge cards. The ablation will show it.
+
+---
+
+## Entry 17: Fine-tune v2 result: no better, the data source is the limit
+
+**Training** (Colab T4, 49 min): validation loss 1.826 (epoch 1), 1.849, 1.925. It overfit
+after epoch 1, and the best epoch was kept. Log: `models/finetune_log_v2.json` (not
+committed). Loaded into Ollama as `saathi-ft2` with `patch_gguf.py` (302 tensors copied,
+4 re-encoded).
+
+**Ablation** (`run_eval.py`, new variant `ft2_rag`, same 71 messages, blind judge):
+
+| | base + RAG | ft v1 + RAG | ft v2 + RAG |
+|---|---|---|---|
+| Empathy | 4.65 | 2.58 | 2.31 |
+| Naturalness | 4.69 | 3.37 | 3.00 |
+| Helpfulness | 4.46 | 2.28 | 2.20 |
+| Judge: safe | 97% | 93% | 85% |
+| Words per reply | 66 | 23 | 34 |
+| English empathy | 4.86 | 2.62 | 3.29 |
+| Hindi naturalness | 4.45 | 2.14 | 1.32 |
+
+Against base + RAG, v2 is significantly worse on all three scores (empathy -2.34
+[-2.58, -2.08]). Both fine-tunes follow the requested script on every first reply.
+
+**What happened:** the data change worked as designed: replies became longer and English
+improved. But Hindi became less coherent: longer machine-translated replies give the model
+more unnatural Hindi to copy. The replies also jump to advice ("apne kaam par dhyan dein")
+instead of validating first, because ESConv supporters are crowd workers, not counsellors.
+The judge's "unsafe" flags are mostly incoherent or off-target replies. The output rails
+don't check coherence, so they let them through. This is a limit of the rails, recorded in
+the README.
+
+**Decision:** stop fine-tuning. Two data-only attempts failed for the same reason: the
+source is the bottleneck. A real fix would need natively written Hindi/Hinglish support
+dialogues (none are freely available) or training on retrieved context. The base model +
+RAG remains the generator; fine-tuning is reported as a negative result.
+
+**Caveats:** v2 ran with the 25-card knowledge base (the others with 14), on battery
+(seconds per reply are inflated), and the judge is not human-validated.
+
+---
+
 ## Next
 
 Deadline: about 2026-11-18.

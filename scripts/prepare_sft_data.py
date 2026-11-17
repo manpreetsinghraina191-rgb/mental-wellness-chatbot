@@ -31,6 +31,7 @@ from tai_bot.sft_data import (
     filter_records,
     read_jsonl,
     review_markdown,
+    select_v2,
     translate_samples,
     write_jsonl,
 )
@@ -122,6 +123,17 @@ def cmd_format(args: argparse.Namespace) -> None:
     print(f"-> {PROC / 'sft_train.jsonl'} ({len(train)}), sft_val.jsonl ({len(val)})")
 
 
+def cmd_format_v2(args: argparse.Namespace) -> None:
+    """Fine-tune v2 data: stricter selection (see sft_data.v2_problem), same split logic."""
+    selected, sel_stats = select_v2(list(read_jsonl(FILTERED)))
+    show(sel_stats)
+    train, val, stats = build_sft(selected, seed=args.seed)
+    write_jsonl(PROC / "sft_v2_train.jsonl", train)
+    write_jsonl(PROC / "sft_v2_val.jsonl", val)
+    show(stats)
+    print(f"-> {PROC / 'sft_v2_train.jsonl'} ({len(train)}), sft_v2_val.jsonl ({len(val)})")
+
+
 def main() -> None:
     load_dotenv(ROOT / ".env")
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
@@ -147,6 +159,7 @@ def main() -> None:
         t.set_defaults(fn=fn)
     sub.add_parser("filter").set_defaults(fn=cmd_filter)
     sub.add_parser("format").set_defaults(fn=cmd_format)
+    sub.add_parser("format-v2").set_defaults(fn=cmd_format_v2)
     args = p.parse_args()
     args.fn(args)
 

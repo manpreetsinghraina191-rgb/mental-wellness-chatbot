@@ -6,7 +6,8 @@ technique, info, idiom_safe, crisis_medium). Only the generator model and retrie
 
   base        qwen3.5:4b, no retrieval
   base_rag    qwen3.5:4b + retrieval (the current demo)
-  ft_rag      saathi-ft (fine-tuned) + retrieval
+  ft_rag      saathi-ft (fine-tune v1) + retrieval
+  ft2_rag     saathi-ft2 (fine-tune v2: stricter data, best of 3 epochs) + retrieval
 
 Measured per reply:
   - raw pass:  the model's FIRST reply passes the output rails (right script, no unsafe terms,
@@ -19,6 +20,7 @@ Measured per reply:
   uv run --extra rag python scripts/run_eval.py generate --variant base
   uv run --extra rag python scripts/run_eval.py generate --variant base_rag
   uv run --extra rag python scripts/run_eval.py generate --variant ft_rag --chat-model saathi-ft
+  uv run --extra rag python scripts/run_eval.py generate --variant ft2_rag --chat-model saathi-ft2
   uv run python scripts/run_eval.py judge          # scores every reply not yet scored (cached)
   uv run python scripts/run_eval.py report         # -> results/ablation.md
 """
@@ -46,7 +48,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "results" / "ablation"
 JUDGE_CACHE = OUT_DIR / "judge_scores.jsonl"
 GENERATED_TYPES = {"support", "technique", "info", "idiom_safe", "crisis_medium"}
-VARIANTS = ["base", "base_rag", "ft_rag"]
+VARIANTS = ["base", "base_rag", "ft_rag", "ft2_rag"]
 LANG_NAMES = {
     "english": "English",
     "roman_hindi": "Hinglish (Roman script)",

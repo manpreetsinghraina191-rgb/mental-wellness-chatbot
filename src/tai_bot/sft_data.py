@@ -425,6 +425,63 @@ def build_sft(
     return train, val, stats
 
 
+def _sentences(text: str) -> list[str]:
+    return [s for s in re.split(r"(?<=[.!?])\s+", text.strip()) if s]
+
+
+def is_question_only(text: str) -> bool:
+    """True when every sentence is a question: no validation, no idea, just asking."""
+    return all(s.rstrip().endswith("?") for s in _sentences(text))
+
+
+def v2_problem(
+    rec: Record, min_last_words: int = 20, min_words: int = 12, min_score: int = 5
+) -> str | None:
+    """Stricter selection for fine-tune v2. v1 taught the model short, question-heavy replies
+    (median 22 words, 43% ending in a question) and stiff Hindi; v2 keeps only windows whose
+    supporter replies are fuller, never just a question, and translated at quality 5."""
+    if min(rec.get("scores") or [5]) < min_score:
+        return "quality"
+    replies = [t["text"] for t in rec["en"] if t["role"] == "assistant"]
+    if not replies or len(replies[-1].split()) < min_last_words:
+        return "short_final_reply"
+    if any(len(t.split()) < min_words for t in replies):
+        return "short_reply"
+    if any(is_question_only(t) for t in replies):
+        return "question_only"
+    return None
+
+
+# The persona speaks gender-neutrally ("mujhe samajh aa raha hai"), but ~1 in 4 translated
+# supporter turns use a gendered "I" ("main samajh sakta hoon", "मैं समझ गया").
+GENDERED_SELF = re.compile(
+    r"(सकता|सकती|गया|गई|रहा|रही)\s*(हूँ|हूं)|मैं\s+समझ\s+(गया|गई)"
+    r"|\b(sakta|sakti|gaya|gayi|raha|rahi)\s+(hoon|hun|hu)\b|\bsamajh\s+(gaya|gayi)\b",
+    re.IGNORECASE,
+)
+
+
+def select_v2(filtered: list[Record]) -> tuple[list[Record], Counter[str]]:
+    stats: Counter[str] = Counter()
+    out = []
+    for r in filtered:
+        if not any(r.get("keep", {}).values()):
+            continue
+        why = v2_problem(r)
+        stats[why or "kept"] += 1
+        if why is not None:
+            continue
+        keep = dict(r["keep"])
+        roles = [t["role"] for t in r["en"]]
+        for lang in ("hindi", "hinglish"):
+            replies = [t for t, role in zip(r[lang], roles, strict=True) if role == "assistant"]
+            if keep.get(lang) and any(GENDERED_SELF.search(t) for t in replies):
+                keep[lang] = False
+                stats[f"{lang}:dropped_gendered_supporter"] += 1
+        out.append({**r, "keep": keep})
+    return out, stats
+
+
 # --- Review sheet for native speakers --------------------------------------------------------
 
 
