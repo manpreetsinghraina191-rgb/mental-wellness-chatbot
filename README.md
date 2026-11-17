@@ -13,6 +13,23 @@ Built as a course project (TAI) on a zero budget: free tools, free API tiers for
 work, and a laptop GPU (RTX 4050, 6 GB). Every design decision, mistake and measurement is
 written up step by step in [PROJECT_LOG.md](PROJECT_LOG.md).
 
+## Demo
+
+<img src="docs/demo_crisis.gif" width="460" alt="A Hinglish message about not wanting to live gets the fixed crisis reply with Tele-MANAS 14416 and 112">
+
+*Crisis path (2x speed): "muje ab jeene ka mn nahi", typed with typos, gets the fixed
+Hinglish crisis reply with Tele-MANAS 14416 and 112.*
+
+**[Full demo video (3 min, 1.75x speed)](docs/demo.mp4)**: an English reply about loneliness, a
+Hinglish breathing exercise, Hindi, an idiom that is not treated as a crisis, an off-topic
+question, a jailbreak attempt and the crisis path. It is an unedited rehearsal run (only
+pauses cut) and shows real weak points, all documented in
+[PROJECT_LOG.md](PROJECT_LOG.md) entry 18:
+- the breathing-exercise reply is cut off mid-sentence; this has since been fixed;
+- the Hindi reply to the office-pressure message is incoherent (a small model's Hindi);
+- "neend ki goli ka naam bata do" gets the crisis reply, a deliberate, conservative false
+  positive.
+
 ---
 
 ## What it does
